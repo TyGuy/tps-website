@@ -1,0 +1,14 @@
+<h1>Counselor: <%= @counselor.name %></h1>
+<p></p>
+
+<h3>Edit Basic Info</h3>
+
+<% tag_text = ["Name", "Email", "Phone"] %>
+
+<% attributes = [:name, :email, :phone] %>
+
+<% submit_text = "Save Changes" %>
+
+<% form_hash = {:action => "edit_basic", :method => "post", :id=>@counselor.id} %>
+
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text, object: @counselor} %>

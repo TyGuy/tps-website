@@ -1,0 +1,8 @@
+<%= render :partial => "shared/current_year_button" %>
+<button type="button" class="btn btn-success"><%= link_to "Create New", :action => "create" %></button>
+<h1>Core Team Members:</h1>
+
+<% headers = ["Core Member ID","Name","Team","Position","Email","Phone"] %>
+<% attributes = [:id, :name, :team, :position, :email, :phone] %>
+<% links = [{:attribute => :id, :controller=>"core_members"}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, edit_and_delete: true, links: links, object_array: @cms} %>

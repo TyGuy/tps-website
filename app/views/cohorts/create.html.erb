@@ -1,0 +1,19 @@
+<h1>Create New Cohort</h1>
+
+<div class="buffer"></div>
+
+<div class="well">
+	<%= form_tag( :action => "add", :method => "post") do %>
+		<div>
+			<%= label_tag(:new_title,"Enter Cohort Name: ") %>
+			<%= text_field_tag(:new_title, "") %>
+		</div>
+		<p>NOTE: name will default to first name of first leader if you leave it blank. This can be changed later also.</p>
+		<div>
+			<%= label_tag(:cohort,"Add Cohort Leader: ") %>
+			<%= collection_select(:cohort, "core_members", CoreMember.current.available , :id, :name) %>
+		<p>(You can add more leaders, and add mentors on the next page, after you create the cohort.)</p>
+		</div>
+		<%= submit_tag("Create Cohort") %>
+	<% end %>
+</div>

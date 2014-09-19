@@ -1,0 +1,24 @@
+<h1>Summaries</h1>
+<div class="well">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<p>
+				<button type="button" class="btn btn-lg btn-link">
+					<%=link_to "Mentees", :controller=>"dashboard", :action=>"summaries", :group => "mentees" %>
+				</button>
+				<button type="button" class="btn btn-lg btn-link">
+					<%=link_to "Mentors", :controller=>"dashboard", :action=>"summaries", :group => "mentors" %>
+				</button>
+				<button type="button" class="btn btn-lg btn-link">
+					<%=link_to "Highschools", :controller=>"dashboard", :action=>"summaries", :group => "highschools" %>
+				</button>
+			</p>
+		</div> <!-- end panel heading -->
+		<div class="panel-body">
+		    <%= render partial: "shared/group_graphs", :locals => {
+		    	:graphs => @graph_data
+		    } %>
+		</div>
+	</div> <!-- end panel-->
+</div> <!--end well -->
+

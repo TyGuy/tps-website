@@ -1,0 +1,9 @@
+# README
+
+(I will do my best to remember all dependencies you need to get this up and running.)
+
+###Prereqs/Dependencies:
+
+  - MySQL (I have 5.6.19; not sure exactly which is necessary; latest stable build should be fine)
+  - Ruby (duh. I'm running 1.9.3)
+  - Rails (4.0)

@@ -1,0 +1,66 @@
+<h1>Issues (<%=@total_issues%>):</h1>
+
+<div class="well">
+<h3>Empty Cohorts (<%= @empty_cohorts.length %>):</h3>
+<% if @empty_cohorts.length == 0 %> 
+	<p>No empty cohorts. Sweet!</p>
+<% else %>
+	<ul>
+	<% for cohort in @empty_cohorts %>
+		<li><%= link_to cohort.title, :controller=> "cohorts", :action=>"show", :id => cohort.id %>
+		</li>
+	<% end %>
+<% end %>
+</div>
+
+<div class="well">
+<h3>Mentors without cohort (<%= @mentors_no_cohort.length %>):</h3>
+<% if @mentors_no_cohort.length == 0 %> 
+	<p>No mentors without cohort. Sweet!</p>
+<% else %>
+	<ul>
+	<% for mentor in @mentors_no_cohort %>
+		<li><%= link_to mentor.name, :controller=> "mentors", :action=>"show", :id => mentor.id %>
+		</li>
+	<% end %>
+<% end %>
+</div>
+
+<div class="well">
+<h3>Mentors without any mentees (<%= @mentors_no_mentee.length %>):</h3>
+<% if @mentors_no_mentee.length == 0 %> 
+	<p>No mentors without mentees. Sweet!</p>
+<% else %>
+	<ul>
+	<% for mentor in @mentors_no_mentee %>
+		<li><%= link_to mentor.name, :controller=> "mentors", :action=>"show", :id => mentor.id %>
+		</li>
+	<% end %>
+<% end %>
+</div>
+
+<div class="well">
+<h3>Mentors with too many [3 or more] mentees (<%= @mentors_too_many_mentees.length %>):</h3>
+<% if @mentors_too_many_mentees.length == 0 %> 
+	<p>No mentors with too many mentees. Sweet!</p>
+<% else %>
+	<ul>
+	<% for mentor in @mentors_too_many_mentees %>
+		<li><%= link_to mentor.name, :controller=> "mentors", :action=>"show", :id => mentor.id %>
+		</li>
+	<% end %>
+<% end %>
+</div>
+
+<div class="well">
+<h3>Mentees without a mentor (<%= @mentees_no_mentor.length %>):</h3>
+<% if @mentees_no_mentor.length == 0 %> 
+	<p>No mentees without a mentor. Sweet!</p>
+<% else %>
+	<ul>
+	<% for mentee in @mentees_no_mentor %>
+		<li><%= link_to mentee.name, :controller=> "mentees", :action=>"show", :id => mentee.id %>
+		</li>
+	<% end %>
+<% end %>
+</div>

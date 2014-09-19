@@ -1,0 +1,44 @@
+<h1>Emails</h1>
+
+<h3>Whose emails do you want?</h3>
+
+<!-- Single button -->
+
+<% @core_member = @user.get_core_member(Constant.constants[:cur_year]) %>
+<% if not @core_member.blank? and not @core_member.cohort_id.blank? %>
+	<div class="btn-group">
+	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+	    My Cohort <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" role="menu">
+	    <li><%= link_to "Core Members", :action => "email_list", :group => "cohort", :subgroup =>'core_members' %></li>
+	    <li><%= link_to "Mentors", :action => "email_list", :group => "cohort", :subgroup =>'mentors' %></li>
+	    <li><%= link_to "Mentees", :action => "email_list", :group => "cohort", :subgroup =>'mentees' %></li>
+	    <li><%= link_to "All", :action => "email_list", :group => "cohort", :subgroup =>'all_members' %></li>
+	  </ul>
+	</div>
+<% end %>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Current Mentees<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><%= link_to "Accepted", :action => "email_list", :group => "mentees", :subgroup =>'accepted' %></li>
+    <li><%= link_to "Rejected", :action => "email_list", :group => "mentees", :subgroup =>'rejected' %></li>
+    <li><%= link_to "Waitlisted", :action => "email_list", :group => "mentees", :subgroup =>'waitlisted' %></li>
+    <li><%= link_to "Undecided", :action => "email_list", :group => "mentees", :subgroup =>'undecided' %></li>
+  </ul>
+</div>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Current Mentors<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><%= link_to "Accepted", :action => "email_list", :group => "mentors", :subgroup =>'accepted' %></li>
+    <li><%= link_to "Rejected", :action => "email_list", :group => "mentors", :subgroup =>'rejected' %></li>
+    <li><%= link_to "Waitlisted", :action => "email_list", :group => "mentors", :subgroup =>'waitlisted' %></li>
+    <li><%= link_to "Undecided", :action => "email_list", :group => "mentors", :subgroup =>'undecided' %></li>
+  </ul>
+</div>

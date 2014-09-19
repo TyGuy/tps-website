@@ -1,0 +1,5 @@
+<h1>Cohort <%=@cohort.id %>: <%=@cohort.title %> (<%=@cohort.year%>) <%= link_to " [Edit]", :action=>"edit", :id => @cohort.id %></h1>
+
+
+<%= render partial: "cohorts/cohort_table", locals: {cohort: @cohort} %>
+

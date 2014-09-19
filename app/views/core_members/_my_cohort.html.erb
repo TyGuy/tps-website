@@ -1,0 +1,9 @@
+<div class="well">
+	<% cohort = @core_member.cohort %>
+	<% if cohort.blank? %>
+		<h5>You are not assigned to a cohort for the year <%=@core_member.year.to_s %>.</h5>
+	<% else %>
+		<h3>Cohort <%=cohort.id %>: <%=cohort.title %> (<%=cohort.year%>) <%= link_to " [Edit]", :controller=>"cohorts", :action=>"edit", :id => cohort.id %></h3>
+		<%= render partial: "cohorts/cohort_table", locals: {cohort: cohort} %>
+	<% end %>
+</div>

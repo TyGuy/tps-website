@@ -1,0 +1,19 @@
+<h1>Auto-Accept Mentees</h1>
+
+<div class="well">
+	<p>Note: This will automatically accept the number of mentees specified, based on the ranked score of their applications. This will overwrite all statuses of existing mentees.</p>
+</div>
+
+<%= form_tag( :controller=>"mentees", :action => "auto_accept", :method => "post" ) do %>
+	
+		<div>
+			<%= label_tag(:num_to_accept, "Number of Mentees to Accept: ") %>
+			<%= text_field_tag(:num_to_accept) %>
+		</div>
+		<p></p>
+		<div>
+			<%= label_tag(:num_to_waitlist, "Number of Mentees to Waitlist: ") %>
+			<%= text_field_tag(:num_to_waitlist) %>
+		</div>
+		<%= submit_tag("Auto Accept Mentees") %>
+<% end %>

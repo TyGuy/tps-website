@@ -1,0 +1,50 @@
+<table cellspacing="0" class="table table-striped table-bordered">
+	<tr>
+		<th>
+			<%= link_to "Mentor ID", :action=>"show_all", :sort_by => :id %>
+		</th>
+		<th>
+			<%= link_to "First Name", :action=>"show_all", :sort_by => :first_name %>
+		</th>
+		<th>
+			<%= link_to "Last Name", :action=>"show_all", :sort_by => :last_name %>
+		</th>
+		<th>
+			<%= link_to "Major", :action=>"show_all", :sort_by => :major %>
+		</th>
+		<th>
+			<%= link_to "Class Year", :action=>"show_all", :sort_by => :grad_year %>
+		</th>
+		<th>
+			<%= link_to "Email", :action=>"show_all", :sort_by => :email %>
+		</th>
+		<th>
+			<%= link_to "Phone", :action=>"show_all", :sort_by => :phone %>
+		</th>
+		<th>
+			Edit
+		</th>
+		<th>
+			Delete
+		</th>
+	</tr>
+	<% @mentors.each do |mentor| %>
+		<%= content_tag :tr do %>
+			<td>
+				<%= link_to mentor.id, :action=>"show", :id => mentor.id %>
+			</td>
+			<%= content_tag(:td, mentor.first_name, :class => "left-align") %>
+			<%= content_tag(:td, mentor.last_name, :class => "left-align") %>
+			<%= content_tag(:td, mentor.major, :class => "left-align") %>
+			<%= content_tag(:td, mentor.grad_year, :class => "left-align") %>
+			<%= content_tag(:td, mentor.email, :class => "left-align") %>
+			<%= content_tag(:td, mentor.phone, :class => "left-align") %>
+			<td>
+				<%= link_to "Edit", :action=>'edit', :id => mentor.id %>
+			</td>
+			<td>
+				<a href="" onclick="confirmDelete('mentors', <%=mentor.id%>)" >Delete</a>
+			</td>
+		<% end %>
+	<% end %>
+</table>

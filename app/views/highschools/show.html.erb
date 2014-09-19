@@ -1,0 +1,25 @@
+<h1>High School: <%= @highschool.name %><%= link_to " [Edit]", :action=>"edit", :id => @highschool.id %></h1>
+<p></p>
+
+<h3>Basic Info:</h3>
+<% headers = ["Highschool ID","Name","Address","City","State"] %>
+<% attributes = [:id, :name, "[not found]", :city, :state] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@highschool]} %>
+
+
+
+<h3>Counselors:</h3>
+<% headers = ["Name","Email","Phone"] %>
+<% attributes = [:name, :email, :phone] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, edit_and_delete: true, object_array: @counselors} %>
+
+
+<h3>Mentees:</h3>
+<% headers = ["Mentee ID","Name","Year in Program"] %>
+<% attributes = [:id, :name, :TPSyear] %>
+<% links = [{:attribute => :id}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: @mentees} %>
+
+

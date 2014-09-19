@@ -1,0 +1,34 @@
+
+<h1>Summaries</h1>
+<div class="well">
+	<ul id="myTab" class="nav nav-tabs" role="tablist">
+		<li class="active"><a href="#mentees_summary_tab" role="tab" data-toggle="tab">Mentees</a></li>
+      	<li><a href="#mentors_summary_tab" role="tab" data-toggle="tab">Mentors</a></li>
+      	<li><a href="#highschools_summary_tab" role-"tab" data-toggle="tab">High Schools</a></li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+    	 <div class="tab-pane fade in active" id="mentees_summary_tab">
+    	 	<% graph_num = 0 %>
+		    <%= render partial: "shared/group_graphs", :locals => {
+		    	:filters => {
+		    		:year => "2014" #### TODO: eventually let admin users choose filters
+		    	},
+		    	:graphs => @mentee_graph_data
+		    } %>
+		</div>
+		<div class="tab-pane fade" id="mentors_summary_tab">
+			<% graph_num += @mentee_graph_data.length %>
+		    <%= render partial: "shared/group_graphs", :locals => {
+		    	:graphs => @mentor_graph_data
+		    } %>
+		</div>
+		 <div class="tab-pane fade" id="highschools_summary_tab">
+		 	<% graph_num += @mentor_graph_data.length %>
+		    <%= render partial: "shared/group_graphs", :locals => {
+		    	:graphs => @highschool_graph_data
+		    } %>
+		</div>
+	</div>
+</div>
+

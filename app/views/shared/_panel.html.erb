@@ -1,0 +1,36 @@
+<!--Needs bootstrap .css to display correctly-->
+
+<!-- Arguments:
+	- col_width. This is just a number (divisible by 12). Default is 4 if not specified
+	- type. This is the type of panel to display. Default is "default".
+	- title. The text for the title of the panel
+	- body. The text for the body of the panel
+-->
+
+<% if col_width.blank? %>
+	<% col_class = "col-sm-4" %>
+<% else %>
+	<% col_class = "col-sm-" + col_width %>
+<% end %>
+
+<% begin type %>
+	<% if type.blank? %>
+		<% panel_class = "panel panel-default" %>
+	<% else %>
+		<% panel_class = "panel panel-" + type %>
+	<% end %>
+<% rescue %>
+	<% panel_class = "panel panel-default" %>
+<% end %>
+
+
+<%= content_tag :div, class: col_class do %>
+	<%= content_tag :div, class: panel_class do %>
+		<div class="panel-heading">
+	  		<h3 class="panel-title"><%=title%></h3>
+		</div>
+		<div class="panel-body">
+	  		<%= body %>
+		</div>
+	<% end %>
+<% end %>

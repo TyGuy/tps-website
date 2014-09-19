@@ -1,0 +1,14 @@
+<h1>Create New Mentor</h1>
+<p></p>
+
+
+<% tag_text = ["First Name", "Last Name", "Gender", "Email", "Phone", "Hometown", "State", "PO Box", "Ethnicity", "FLI/Other Demographics"] %>
+
+<% attributes = [ :first_name, :last_name, :gender, :email, :phone, :hometown, :state, :PO_box, :ethnicity, :demographics ] %>
+
+<% submit_text = "Create Mentor!" %>
+
+<% form_hash = {:action => "add", :method => "post"} %>
+
+
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text } %>

@@ -1,0 +1,41 @@
+<!-- TODO: Right now we ignore filter, let's actually implement this filtering feature. -->
+
+<!-- 
+locals:
+	graphs
+	filters (currently ignored)
+	title
+	graph_options
+	new
+-->
+
+<div class="container-fluid"><!--mentees container-->
+	<div class="td-buffer"></div>
+ 	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<!-- each graph -->
+
+			<% for graph in graphs %>
+
+				<div class="panel panel-primary">
+    				<div class="panel-heading">
+        				<h3 class="panel-title"><%=graph[:title]%></h3>
+    				</div>
+					<div class="panel-body">
+						<% graph[:graph_options] ||= {} %>
+						<div data-chart-type=<%=graph[:graph_type].camelize%> >
+						<%= eval("#{graph[:graph_type]}(#{graph[:data]}, #{graph[:graph_options].inspect})") %>
+						<% unless graph[:add_data].blank? %>
+							<% for line in graph[:add_data] %>
+								<h5><%=line%></h5>
+							<% end %>
+						<% end %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!--end each graph-->
+
+		</div>
+	</div>
+</div>

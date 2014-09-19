@@ -1,0 +1,45 @@
+<h1>
+	Cohort <%=@cohort.id %>: <%=@cohort.title %> (<%=@cohort.year%>) 
+	<%= link_to " [View]", :action=>"show", :id => @cohort.id %>
+	<button type="button" class="btn btn-danger">
+		<a href="" onclick="confirmDelete('cohorts', <%=@cohort.id%>)" >Delete</a>
+</h1>
+
+<div class="well">
+<%= form_tag( :action => "change_title", :method => "post", :id=>@cohort.id ) do %>
+	<%= label_tag(:new_title,"Change Cohort Name: ") %>
+	<%= text_field_tag(:new_title, @cohort.title) %>
+	<%= submit_tag("Update Cohort") %>
+<% end %>
+</div>
+
+<div class="well">
+<h3>Cohort Leaders</h3>
+<% headers = ["Core Member ID","First Name","Last Name","Email","Phone"] %>
+<% attributes = [:id, :first_name, :last_name, :email, :phone] %>
+<% links = [{:attribute=>:id}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: @leaders, :remove_assoc => true} %>
+
+<%= form_tag( :action => "add_core_member", :method => "post", :id=>@cohort.id ) do %>
+
+	<%= label_tag(:new_cm_id,"Add Cohort Leader: ") %>
+	<%= collection_select(:cohort, "core_members", CoreMember.current.available, :id, :name) %>
+	<%= submit_tag("Update Cohort") %>
+<% end %>
+</div>
+
+
+<div class="well">
+<h3>Mentors</h3>
+<% headers = ["Mentor ID","First Name","Last Name","Email","Phone"] %>
+<% attributes = [:id, :first_name, :last_name, :email, :phone] %>
+<% links = [{:attribute=>:id}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: @mentors, :remove_assoc => true} %>
+
+<%= form_tag( :action => "add_mentor", :method => "post", :id=>@cohort.id ) do %>
+
+	<%= label_tag(:new_mentor_id,"Add Mentor: ") %>
+	<%= collection_select(:cohort, :mentors, Mentor.where('year = ? and cohort_id is NULL',Constant.constants[:cur_year]).order(:first_name) , :id, :name) %>
+	<%= submit_tag("Update Cohort") %>
+<% end %>
+</div>

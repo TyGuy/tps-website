@@ -1,0 +1,103 @@
+<h1>Mentee Application: <%= @mentee.name %></h1>
+<h3>(Current Application Status: <%= @mentee.status %>)</h3>
+
+
+<% if @app.submitted > Constant.app_due_date %>
+	<h3>[THIS APP WAS SUBMITTED LATE, ON <%= @app.submitted.strftime("%B %e, %Y at %l:%M%P") %>. ]</h3>
+<% end %>
+
+
+
+<div class="main-content">
+
+<div class="elegibility-content">
+	<div class="row">
+
+		<!--set col_width, for all panels in this section-->
+		<% col_width = "4" %>
+	
+
+		<!--first gen panel-->
+    	<% if @mentee.is_first_gen.downcase == "yes" %>
+			<% body = @mentee.first_name + " is a first gen college student." %>
+			<% type = "success" %>
+		<% else %> 
+			<% body = @mentee.first_name + " is not a first gen college student." %>
+			<% type = "danger" %>
+		<% end %>
+		<%= render partial: "shared/panel", locals: {title: "First Gen", body: body, col_width: col_width, type: type } %>	
+
+    	<!--low income panel-->
+    	<% if @mentee.free_lunch.downcase == "yes" %>
+			<% body = @mentee.first_name + " is a low income student." %>
+			<% type = "success" %>
+		<% else %> 
+			<% body = @mentee.first_name + " is not a low income student." %>
+			<% type = "danger" %>
+		<% end %>
+		<%= render partial: "shared/panel", locals: {title: "Income status", body: body, col_width: col_width, type: type } %>	
+
+		<!--ethnicity panel-->
+		<% body = @mentee.first_name + "'s ethnicity is: " + @mentee.ethnicity%>
+		<%= render partial: "shared/panel", locals: {title: "Ethnicity", body: body, col_width: col_width, type: "info" } %>	
+
+	</div>
+</div>
+
+
+<h3>Basic Info:</h3>
+<% headers = ["Mentee ID","First Name","Last Name","Gender","Hometown"] %>
+<% attributes = [:id, :first_name, :last_name, :gender, :city] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentee]} %>
+
+<h3>Contact Info:</h3>
+<% headers = ["Address", "City", "State", "Zip", "Email", "Cell Phone", "(Can text?)", "Secondary Phone"] %>
+<% attributes = [:street_address, :city, :state, :zip_code, :email, :phone_1, :phone_1_can_text, :phone_2] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentee]} %>
+
+<h3>Demographic Info:</h3>
+<% headers = ["Gender","Ethnicity","Do You Qualify For Free/Reduced Lunch?","Household Income Range","People in Household", "First Generation College Student?"] %>
+<% attributes = [:gender, :ethnicity, :free_lunch, :income_range, :people_in_home, :is_first_gen] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentee]} %>
+
+<h3>Highschool:</h3>
+<% headers = ["Name", "City", "State", "Number of Students", "Number of Guidance Counselors"] %>
+<% attributes = [:name, :city, :state, :num_students, :num_counselors] %>
+<% links = [{:attribute=>:name}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@highschool]} %>
+
+<h3>Academics:</h3>
+<% headers = ["Unweighted GPA", "Weighted GPA", "Highest SAT or PSAT score", "Highest ACT Composite Score"] %>
+<% attributes = [:GPA_u, :GPA_w, :SAT, :ACT] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentee]} %>
+<p>&nbsp;</p>
+<h3>Application Questions:</h3>
+
+<% for question in @questions do %>
+	<p><b><%= question.Q %></b></p>
+	<p><%= question.A%></p>
+	<p>&nbsp;</p>
+<% end %>
+</div>
+
+
+<div class="right-column">
+
+	<div class="status_buttons">
+	<p>
+		<button type="button" class="btn btn-success"><%= link_to "Accept", :action=>"change_status", :id => @mentee.id, :status => "Accepted" %></button>
+		<button type="button" class="btn btn-warning"><%= link_to "Waitlist", :action=>"change_status", :id => @mentee.id, :status => "Waitlist" %></button>
+		<button type="button" class="btn btn-danger"><%= link_to "Reject", :action=>"change_status", :id => @mentee.id, :status => "Rejected" %></button>
+	</p>
+	<hr />
+	</div>
+
+	<%= render partial: "apps/app_score", locals: {app: @app, reader_1: @reader_1, reader_2: @reader_2} %>
+	<%= render partial: "apps/app_comments", locals: {comments: @comments, app: @app} %>
+
+	
+</div>

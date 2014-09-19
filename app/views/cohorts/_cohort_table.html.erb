@@ -1,0 +1,21 @@
+<!--displays table for ONE COHORT. Not to be confused with _cohorts_table.html.erb, (note the s) which displays multiple cohorts-->
+
+<!-- locals: cohort -->
+
+<h3>Cohort Leaders</h3>
+<% headers = ["Core Member ID","First Name","Last Name","Email","Phone"] %>
+<% attributes = [:id, :first_name, :last_name, :email, :phone] %>
+<% links = [{:attribute=>:id}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: cohort.core_members} %>
+
+<h3>Mentors</h3>
+<% headers = ["Mentor ID","First Name","Last Name","Email","Phone"] %>
+<% attributes = [:id, :first_name, :last_name, :email, :phone] %>
+<% links = [{:attribute=>:id}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: cohort.mentors} %>
+
+<h3>Mentees</h3>
+<% headers = ["Mentee ID","First Name","Last Name","Email","Phone"] %>
+<% attributes = [:id, :first_name, :last_name, :email, :phone_1] %>
+<% links = [{:attribute=>:id}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: cohort.mentees} %>

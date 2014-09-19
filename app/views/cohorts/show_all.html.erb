@@ -1,0 +1,9 @@
+<%= render :partial => "shared/export_button" %>
+<%= render :partial => "shared/current_year_button" %>
+<button type="button" class="btn btn-success"><%= link_to "Create New", :action => "create" %></button>
+<h1>Cohorts</h1>
+<%= render :partial => "shared/search_bar" %>
+
+<div id="results_container">
+	<%= render :partial => "cohorts_table" %>
+</div>

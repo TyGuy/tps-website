@@ -1,0 +1,71 @@
+<h1>Mentor Application: <%= @mentor.name %></h1>
+<h3>(Current Application Status: <%= @mentor.status %>)</h3>
+<% if @app.submitted > Constant.app_due_date %>
+	<h3>[THIS APP WAS SUBMITTED LATE, ON <%= @app.submitted.strftime("%B %e, %Y at %l:%M%P") %>. ]</h3>
+<% end %>
+
+<div class="main-content">
+
+	<div class="elegibility-content">
+		<div class="row">
+
+			<!--set col_width, for all panels in this section-->
+			<% col_width = "6" %>
+		
+
+			<!--first gen panel-->
+	    	<% if not @mentor.other_ids.blank? %>
+				<% body = @mentor.first_name + " has been a mentor before." %>
+				<% type = "success" %>
+			<% else %> 
+				<% body = @mentor.first_name + " has not been a mentor before." %>
+				<% type = "primary" %>
+			<% end %>
+			<%= render partial: "shared/panel", locals: {title: "Previous Mentor", body: body, col_width: col_width, type: type } %>	
+
+		</div>
+	</div>
+
+<h3>Basic Info:</h3>
+<% headers = ["Mentor ID","First Name","Last Name","Gender"] %>
+<% attributes = [:id, :first_name, :last_name, :gender ] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentor]} %>
+
+<h3>Contact Info:</h3>
+<% headers = ["Hometown", "State", "Email", "Cell Phone", "PO Box"] %>
+<% attributes = [:hometown, :state, :email, :phone, :PO_box] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentor]} %>
+
+<h3>Demographic/Other Info:</h3>
+<% headers = ["Gender","Demographic Information","Graduation Year", "Major", "Previous Mentor?"] %>
+<% attributes = [:gender, :demographics, :grad_year, :major, :prior_mentor] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentor]} %>
+
+
+<h3>Application Questions:</h3>
+<% for question in @questions do %>
+	<p><b><%= question.Q %></b></p>
+	<p><%= question.A%></p>
+	<p>&nbsp;</p>
+<% end %>
+
+</div><!-- end main-content -->
+
+<div class="right-column">
+
+	<div class="status_buttons">
+	<p>
+
+		<button type="button" class="btn btn-success"><%= link_to "Accept", :action=>"change_status", :id => @mentor.id, :status => "Accepted" %></button>
+		<button type="button" class="btn btn-warning"><%= link_to "Waitlist", :action=>"change_status", :id => @mentor.id, :status => "Waitlist" %></button>
+		<button type="button" class="btn btn-danger"><%= link_to "Reject", :action=>"change_status", :id => @mentor.id, :status => "Rejected" %></button>
+	</p>
+	</div>
+
+	<%= render partial: "apps/app_score", locals: {app: @app, reader_1: @reader_1, reader_2: @reader_2} %>
+	<%= render partial: "apps/app_comments", locals: {comments: @comments, app: @app} %>
+
+</div>

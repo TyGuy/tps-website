@@ -1,0 +1,19 @@
+<!-- locals: form_hash, submit_text, tag_names, tag_text, fill_attributes  ***These last 3 should all be the same length-->
+
+<%= form_tag( form_hash ) do %>
+	<% for i in 0..attributes.length-1 do %>
+		<div>
+			<% tag_name = "new_#{attributes[i]}".to_sym %>
+			<%= label_tag(tag_name, tag_text[i]+":") %>
+			<% if defined? object and not object.blank? %>
+				<%= text_field_tag(tag_name, object[attributes[i]]) %>
+			<% else %>
+				<%= text_field_tag(tag_name) %>
+			<% end %>
+		</div>
+		<p></p>
+	<% end %>
+	<%= submit_tag(submit_text) %>
+<% end %>
+
+

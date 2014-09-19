@@ -1,0 +1,35 @@
+<h1>Highschool: <%= @highschool.name %>
+<%= link_to " [View]", :action=>"show", :id => @highschool.id %>
+</h1>
+<p></p>
+
+<h3>Edit Basic Info</h3>
+
+<% tag_text = ["Name", "Address", "City", "State", "Website" ] %>
+<% attributes = [ :name, :address, :city, :state, :website ] %>
+<% submit_text = "Save Changes" %>
+<% form_hash = {:action => "edit_basic", :method => "post", :id=>@highschool.id} %>
+
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text, object: @highschool} %>
+
+<div>&nbsp;</div>
+<h3>Add Counselor:</h3>
+
+<%= form_tag(:controller => "highschools", :action => "add_counselor", :method => "post", :id=>@highschool.id ) do %>
+	<div>
+		<%= label_tag(:new_counselor_name, "Name: ") %>
+		<%= text_field_tag(:new_counselor_name) %>
+	</div>
+	<p></p>
+	<div>
+		<%= label_tag(:new_counselor_email, "Email: ") %>
+		<%= text_field_tag(:new_counselor_email) %>
+	</div>
+	<p></p>
+	<div>
+		<%= label_tag(:new_counselor_phone, "Phone: ") %>
+		<%= text_field_tag(:new_counselor_phone) %>
+	</div>
+	<p></p>
+	<%= submit_tag("Add Counselor") %>
+<% end %>

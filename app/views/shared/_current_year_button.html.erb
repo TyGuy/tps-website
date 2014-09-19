@@ -1,0 +1,5 @@
+<% if @showing_all_years == false or @showing_all_years == 'false' %>
+<button type="button" class="btn btn-primary"><%= link_to "Show All Years", :action => "show_all", :show_all_years => true %></button>
+<% else %>
+<button type="button" class="btn btn-primary"><%= link_to "Show Only Current Year", :action => "show_all", :show_all_years => false %></button>
+<% end %>

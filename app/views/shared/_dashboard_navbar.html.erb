@@ -1,0 +1,75 @@
+
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-left">
+
+        <li><%= link_to "Home", :controller => "dashboard", :action => "index" %></li> 
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">People/Groups<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Mentees", :controller => "mentees", :action => "show_all" %></li>
+            <li><%= link_to "Mentors", :controller => "mentors", :action => "show_all" %></li>
+            <li><%= link_to "Core Members", :controller => "core_members", :action => "show_all" %></li>
+             <li><%= link_to "Cohorts", :controller => "cohorts", :action => "show_all" %></li>
+          </ul>
+        </li>
+
+         <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Mentee Apps", :controller => "apps", :action => "show_current_mentees" %></li> 
+            <li><%= link_to "Mentor Apps", :controller => "apps", :action => "show_current_mentors" %></li>
+            <li><%= link_to "Mentor/Mentee Matching", :controller => "dashboard", :action => "match" %></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Other<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "High Schools", :controller => "highschools", :action => "show_all" %></li>
+             <li><%= link_to "Get Email Lists", :controller => "dashboard", :action => "view_emails" %></li>
+              <li><%= link_to "View Issues", :controller => "dashboard", :action => "show_issues" %></li>
+          </ul>
+        </li>
+
+        <li><%= link_to "Summaries", :controller => "dashboard", :action => "summaries" %></li>
+        <li><%= link_to "Send Feedback", :controller => "dashboard", :action => "feedback" %></li> 
+
+
+
+      
+
+
+        <li><%= link_to( content_tag(:span, "", :class=>"glyphicon glyphicon-cog"), :controller => "users", :action => "settings") %></li>
+         
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right td-navbar-right-buffer">
+      
+            <% if session[:user_id] == nil %>
+              <%= form_tag(:controller=>"users", :action => "login", :method => "post") do %>
+                <%= label_tag(:user_login, "User name:") %>
+                <%= text_field_tag(:user_login) %>
+                <%= label_tag(:password, "Password:") %>
+                <%= password_field_tag(:password) %>
+                <%= submit_tag("Login") %>
+              <% end %>
+            <% else %>
+              <li class="navbar-list-text">
+                Hey, <%= User.find(session[:user_id]).first_name %>!  
+              </li>
+              <li><%= link_to "[Logout]", :controller => "users", :action => "logout" %></li>
+            <% end %>  
+      </ul>
+
+    </div> <!-- end navbar-collapse collapse -->
+
+</div>
+
+
+
+
+

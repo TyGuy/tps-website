@@ -1,0 +1,17 @@
+<div class="comments">
+	<h3>Comments:</h3>
+	<% for comment in comments do %>
+		<p><b>(<%= comment.date_time.in_time_zone('Pacific Time (US & Canada)').strftime("%B %e, %Y at %l:%M%P") %>) 
+			<%= comment.core_member.first_name + " " + comment.core_member.last_name[0]%>:
+		</b></p>
+		<p><%=comment.comment %></p>
+		<hr />
+	<% end %>
+</div>
+
+<%= form_tag(:controller=>"comments", :action => "create", :method => "post", 
+	:app_id=>app.id ) do %>
+	<%= label_tag(:new_comment, "Post your comment here:") %>
+	<%= text_area_tag(:new_comment) %>
+	<%= submit_tag("Add Comment") %>
+<% end %>

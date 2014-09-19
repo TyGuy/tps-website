@@ -1,0 +1,74 @@
+<h1>Mentee: <%= @mentee.name %><%= link_to " [Edit]", :action=>"edit", :id => @mentee.id %></h1>
+<p></p>
+
+<h3>Mentee Status:</h3>
+
+<p><%= @mentee.name %> <%=@mentee.status_verbose %> for the year <%= @mentee.TPSyear %>.
+	<% if (not @mentee.app.blank?) then %>
+		<b><%= link_to "Application", :controller=>"mentees", :action=>"view_app", :id => @mentee.id %></b>
+	<% end %>
+</p> 
+
+<h3>Basic Info:</h3>
+<% headers = ["Mentee ID","First Name","Last Name","Year in Program","Mentor"] %>
+<% attributes = [:id, :first_name, :last_name, :TPSyear, :mentor_id] %>
+<% links = [{:attribute => :mentor_id, :controller=> "mentors", :action => "show", :id=>:mentor_id, :text=>"mentor_name"}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentee]} %>
+
+
+<h3>Contact Info:</h3>
+<% headers = ["Address","City","State","Zip","Email","Phone 1","Can Recieve Texts?","Phone 2"] %>
+<% attributes = [:street_address, :city, :state, :zip_code, :email, :phone_1, :phone_1_can_text, :phone_2] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentee]} %>
+
+
+<h3>High School/Academics:</h3>
+
+<table cellspacing="0" class="table table-striped table-bordered">
+	<tr>
+		<%= content_tag(:th, "High School") %>
+		<% if not @counselor.blank? %>
+			<%= content_tag(:th, "Counselor") %>
+			<%= content_tag(:th, "Counselor Email") %>
+			<%= content_tag(:th, "Counselor Phone") %>
+		<% end %>
+		<%= content_tag(:th, "GPA") %>
+		<%= content_tag(:th, "GPA (weighted)") %>
+		<%= content_tag(:th, "SAT Score") %>
+		<%= content_tag(:th, "ACT Score") %>
+	</tr>
+	<tr>
+		<td>
+			<%= link_to @highschool.name, :controller=>"highschools", :action=>"show", :id => @highschool.id %>
+		</td>
+		<% if not @counselor.blank? %>
+			<%= content_tag(:td, @counselor.name) %>
+			<%= content_tag(:td, @counselor.email) %>
+			<%= content_tag(:td, @counselor.phone) %>
+		<% end %>
+		<%= content_tag(:td, @mentee.GPA_u) %>
+		<%= content_tag(:td, @mentee.GPA_w) %>
+		<%= content_tag(:td, @mentee.SAT) %>
+		<%= content_tag(:td, @mentee.ACT) %>
+	</tr>
+</table>
+
+<h3>Mentor:</h3>
+<% if @mentee.mentor.blank? %>
+	<p>This mentee is not assigned to a mentor.</p>
+	<p>You can assign them to one now if you want.<p>
+	<%= form_tag( :action => "edit_mentor", :method => "post", :id=>@mentee.id ) do %>
+		<div>
+			<%= label_tag(:new_mentor_id,"Mentor: ") %>
+			<%= collection_select(:mentee, :mentor_id, Mentor.current.accepted.get_available.order(:first_name), :id, :name) %>
+		</div>
+		<p></p>
+		<%= submit_tag("Assign to Mentor") %>
+	<% end %>
+<% else %>
+	<% headers = ["Mentor ID","Name", "Email", "Phone"] %>
+	<% attributes = [:id, :name, :email, :phone] %>
+	<% links = [{:attribute=>:name}] %>
+	<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentor]} %>
+<% end %>

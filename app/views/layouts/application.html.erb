@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <%=favicon_link_tag 'favicon.ico'%>
+  <title>Core Dashboard</title>
+
+  <!--javascript include-->
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <!-- chartkick, for graphs -->
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+  <!--css include-->
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "tables", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "bootstrap-theme", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "bootstrap", media: "all", "data-turbolinks-track" => true %>
+
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if params[:controller] == "public" %>
+  <%= render partial: "shared/public_navbar" %>
+<% else %>
+  <%= render partial: "shared/dashboard_navbar" %>
+<% end %>
+
+
+<div class="td-buffer region">
+</div>
+
+<div class="td-content-container">
+  <% if flash[:error] %>
+      <div class="alert alert-danger"><strong>Whoops! </strong><%= flash[:error] %></div>
+  <% end %>
+  <% if flash[:success] %>
+      <div class="alert alert-success"><strong>Success! </strong><%= flash[:success] %></div>
+  <% end %>
+
+  <% if User.all.blank? %>
+    <button type="button" class="btn btn-primary"><%= link_to "Load Initial Data", :controller =>"dashboard", :action=>"load_initial_data" %></button>
+
+      <button type="button" class="btn btn-primary"><%= link_to "Reload from most recent backup", :controller =>"dashboard", :action=>"reload_from_backup" %></button>
+
+  <% end %>
+
+  <%= yield %>
+
+</div>  
+</body>
+</html>

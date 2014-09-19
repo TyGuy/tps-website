@@ -1,0 +1,27 @@
+<h1>Current Mentee Applications
+	<button type="button" class="btn btn-primary"><%= link_to "View All", :action=>"show_current_mentees", :filter => "false" %></button>
+
+	<button type="button" class="btn btn-primary">
+		<%= link_to "View Assigned to Me", :action=>"show_current_mentees", :filter => "true" %>
+	</button>
+
+	<button type="button" class="btn btn-primary">
+		<%= link_to "Check for New Apps", :controller => "mentees", :action=>"update_apps" %>
+	</button>
+</h1>
+<p>('*' by the score indicates that one or both readers have not scored the app yet)<p>
+
+<% headers = ["Mentee ID","First Name","Last Name","Gender","Hometown", "Application", "Score", "Reader 1", "Create/Change Reader 1", "Reader 2", "Create/Change Reader 2"] %>
+
+
+<h3>Unread Mentee Applications (no decision made yet):</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @unread_mentees} %>
+
+<h3>Accepted Mentees:</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @accepted_mentees} %>
+
+<h3>Waitlisted Mentees:</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @waitlist_mentees} %>
+
+<h3>Rejected Mentees:</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @rejected_mentees} %>

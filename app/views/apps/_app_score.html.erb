@@ -1,0 +1,47 @@
+<!-- locals: app, reader_1, reader_2 -->
+
+
+<div class="score">
+		<h3>Scores:</h3>
+		<% if (not reader_1.blank?) %>
+			<% if (not app.score_1.blank?) %>
+				<p>	
+					<b><%= reader_1.name %>:</b> <%= app.score_1 %>
+				</p>
+			<% else %>
+				<p><b> 
+					[<%= reader_1.name %> has not given this app a score yet.]
+				</b></p>
+			<% end %>
+		<% else %>
+			<p><b>[Reader 1 is not assigned yet]</b></p>
+		<% end %>
+
+		<% if (not reader_2.blank?) %>
+			<% if (not app.score_2.blank?) %>
+				<p>
+					<b><%= reader_2.name %>:</b> <%= app.score_2 %>
+				</p>
+			<% else %>
+				<p><b> 
+					[<%= reader_2.name %> has not given this app a score yet.]
+				</b></p>
+			<% end %>
+		<% else %>
+			<p><b>[Reader 2 is not assigned yet]</b></p>
+		<% end %>
+
+		<% unless app.still_unread %>
+			<p>Average Score: <%=app.score%></p>
+		<% end %>
+
+		<% cur_user = CoreMember.find(session[:user_id]) %>
+		<% if cur_user.is_reader(app) %>
+			<%= form_tag(:controller=>"apps", :action => "add_score", :method => "post", :id=>app.id) do %>
+				<%= label_tag(:score, "Add/Update your score here:") %>
+				<%= text_area_tag(:score) %>
+				<%= submit_tag("Submit") %>
+			<% end %>
+		<% end %>
+		<hr />	
+	</div>

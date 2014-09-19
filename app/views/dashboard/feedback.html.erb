@@ -1,0 +1,18 @@
+<h1>Send Feedback</h1>
+<h3>Hey <%=User.find(session[:user_id]).first_name%>!</h3>
+
+<h3>Got some ideas for the site? Something broken? Just wanna say hi? Then fill out the message below and help our IT Team build a great website, which will do its small part to help the organization soar.</h3>
+
+<%= form_tag(:controller=>"dashboard", :action => "mail_feedback", :method => "post") do %>
+	<div class="well">
+		<div>
+			<%= label_tag(:new_message, "Add your message here:") %>
+		</div>
+		<div>
+			<%= text_area_tag(:new_message) %>
+		</div>
+		<div>
+			<%= submit_tag("Send Message") %>
+		</div>
+	</div>
+<% end %>

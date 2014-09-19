@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo Starting Database Rollback...
+for i in `seq 1 12`;
+do
+	rake db:rollback
+done
+
+echo Reseting and updating Database to latest migration...
+rake db:migrate

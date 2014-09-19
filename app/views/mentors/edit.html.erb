@@ -1,0 +1,55 @@
+<h1>Mentor: <%= @mentor.name %>
+	<%= link_to " [View]", :action=>"show", :id => @mentor.id %>
+	<button type="button" class="btn btn-large btn-danger">
+		<a href="" onclick="confirmDelete('mentors', <%=@mentor.id%>)" >Delete</a>
+	</button>
+</h1> 
+
+<p></p>
+
+<h3>Edit Basic Info</h3>
+
+<% tag_text = ["First Name", "Last Name", "Grad Year", "Major", "Hometown", "PO Box", "Email", "Phone", "Ethnicity", "FLI/Minortiy Status"] %>
+
+<% attributes = [ :first_name, :last_name, :grad_year, :major, :hometown, 
+	:PO_box, :email, :phone, :ethnicity, :demographics] %>
+
+<% submit_text = "Save Changes" %>
+
+<% form_hash = {:action => "edit_basic", :method => "post", :id=>@mentor.id} %>
+
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text, object: @mentor} %>
+
+<div>&nbsp;</div>
+<h3>Change Cohort</h3>
+
+<%= form_tag( :action => "edit_cohort", :method => "post", :id=>@mentor.id ) do %>
+	<div>
+		<%= label_tag(:new_cohort_id,"Cohort: ") %>
+		<%= collection_select(:mentor, :cohort_id, Cohort.all, :id, :title) %>
+	</div>
+	<p></p>
+	<%= submit_tag("Update Cohort") %>
+<% end %>
+
+<div>&nbsp;</div>
+<% if @mentor.mentees.length < 2 %> 
+	<h3>Add Mentee</h3>
+	<%= form_tag( :action => "add_mentee", :method => "post", :id=>@mentor.id ) do %>
+		<div>
+			<%= label_tag(:mentee_id,"Mentee: ") %>
+			<%= collection_select(:mentor, :mentees, Mentee.current.accepted.unassigned.order(:first_name), :id, :name) %>
+		</div>
+		<p></p>
+		<%= submit_tag("Add Mentee") %>
+	<% end %>
+
+<% end %>
+
+<% if @mentor.mentees.length > 0 %>
+		<h3>Unassign Mentees</h3>
+		<% headers = ["Mentee ID","Name", "Highschool", "Email", "Phone"] %>
+		<% attributes = [:id, :name, "highschool_name", :email, :phone_1] %>
+		<% links = [{:attribute=>:name, }] %>
+		<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: @mentor.mentees, remove_assoc: true} %>
+<% end %>

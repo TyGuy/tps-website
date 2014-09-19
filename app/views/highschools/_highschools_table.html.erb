@@ -1,0 +1,35 @@
+<table cellspacing="0" class="table table-striped table-bordered">
+
+	<tr>
+		<th>
+			<%= link_to "Highschool ID", :action=>"show_all", :sort_by => :id %>
+		</th>
+		<th>
+			<%= link_to "Name", :action=>"show_all", :sort_by => :name %>
+		</th>
+		<th>
+			<%= link_to "City", :action=>"show_all", :sort_by => :city %>
+		</th>
+		<th>
+			<%= link_to "State", :action=>"show_all", :sort_by => :state %>
+		</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+
+	<% @highschools.each do |school| %>	
+		<%= content_tag :tr do %>
+			<td>
+				<%= link_to school.id, :action=>"show", :id => school.id %>
+			</td>
+			<%= content_tag(:td, school.name) %>
+			<%= content_tag(:td, school.city) %>
+			<%= content_tag(:td, school.state) %>
+			<td>
+				<%= link_to "Edit", :action=>'edit', :id => school.id %>
+			</td>
+			<td>
+				<a href="" onclick="confirmDelete('highschools', <%=school.id%>)" >Delete</a>
+			</td>
+		<% end %>
+	<% end %>

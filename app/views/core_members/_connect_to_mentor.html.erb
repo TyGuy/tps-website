@@ -1,0 +1,13 @@
+<div class="well">
+	<h5> It appears there is a mentor in the database with your name. Click the button if this is you.</h5>
+
+	<% headers = ["Mentor ID","First Name","Last Name","Email","Phone"] %>
+	<% attributes = [:id, :first_name, :last_name, :email, :phone] %>
+	<% links = [] %>
+	<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentor]} %>
+
+	<%= form_tag( :controller => "core_members", :action => "connect_to_mentor", :method => "post", :core_member_id=>@core_member.id, :mentor_id=>@mentor.id ) do %>
+		<%= submit_tag("This is me!") %>
+	<% end %>
+
+</div>

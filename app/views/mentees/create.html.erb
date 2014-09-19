@@ -1,0 +1,15 @@
+<h1>Create New Mentee</h1>
+<p></p>
+
+
+<% tag_text = ["First Name", "Last Name", "Gender", "Email", "Phone 1", "Phone 1 Can Text?", "Phone 2", "Street Address", "City", "State", "Zip", "Ethnicity", "Qualifies for free lunch?", "Income Range", "Number of people in household", "First Gen college student?","GPA (unwieghted)","GPA (weighted)","Highest Combined SAT Score","Highest Combined ACT Score"] %>
+
+<% attributes = [ :first_name, :last_name, :gender, :email, :phone_1, :phone_1_can_text, :phone_2, :street_address, :city, :state, :zip_code, :ethnicity, :free_lunch, :income_range, :people_in_home, :is_first_gen, :GPA_u, :GPA_w, :SAT, :ACT ] %>
+
+<% submit_text = "Create Mentee!" %>
+
+<% form_hash = {:action => "add", :method => "post"} %>
+
+
+<!--NEEDS AN EQUALS SIGN AFTER THIS TO SHOW UP ON PAGE-->
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text, object: nil} %>

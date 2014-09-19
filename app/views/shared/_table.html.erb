@@ -1,0 +1,118 @@
+<!--locals: headers, attributes, links, object_array-->
+
+<!-- "links" is an array of hashes (each corresponding to a link
+in a table cell). Each link hash contains:
+	- :attribute (matching the attribute in the cell) 	REQUIRED
+	- :controller (to reidrect to, default is type of 
+	objects in object_array)							OPTIONAL
+	- :text (what the link shows, default is attribute 
+	value)												OPTIONAL
+	- :action (the method of the controller class to 
+	execute. default is "show")							OPTIONAL
+	- would also like to eventually implement :id, 
+	in order to make the id argument something other
+	than the object's id (for example, we might want to
+	make it the mentee's highschool_id)
+-->
+
+<table cellspacing="0" class="table table-striped table-bordered">
+	<tr>
+		<% for header in headers do %>
+			<%= content_tag(:th, header) %>
+		<% end %>
+		<% if defined? edit_and_delete and edit_and_delete == true %>
+			<th>Edit</th>
+			<th>Delete</th>
+		<% end %>
+		<% if defined? remove_assoc and remove_assoc == true %>
+			<th></th>
+		<% end %>
+	</tr>
+	<% odd = true %>
+	<% for object in object_array %>
+		<!--set controller -->
+		<% controller = object.class.name.split('::').last.underscore.pluralize %>
+		<% id = object.id %>
+		<%= content_tag :tr do %>
+			<% for att in attributes %>
+				<% is_link = false %>
+				<% for link in links %>
+					<% if link[:attribute] == att %>
+						<td>
+							<!--reset controller if links to different type of object-->
+							<% if link[:controller] %>
+								<% controller = link[:controller] %>
+							<% end %>
+
+							<!--set action-->
+							<% if link[:action] %>
+								<% action = link[:action] %>
+							<% else %>
+								<% action = "show" %>
+							<% end %>
+
+							<!--set text-->
+							<% if link[:text] %>
+								<% if object[link[:text]].blank? %>
+									<% begin %>
+										<% if not object.send(link[:text]).blank? %>
+											<% link_text = object.send(link[:text]) %>
+										<% end %>
+									<%rescue %>
+										<% link_text = link[:text] %>
+									<% end %>
+								<% else %>
+									<%= link_text = object[link[:text]] %>
+								<% end %>
+							<% else %>
+								<% if object[att].to_s.blank? %>
+									<% link_text = object.send(att).to_s %>
+								<% else %>
+									<% link_text = object[att].to_s %>
+								<% end %>
+							<% end %>
+
+							<!--reset id if specified-->
+							<% if link[:id] %>
+								<% id = object[link[:id]] %>
+							<% end %>
+
+							<!--create link-->
+							<%= link_to link_text, :controller=> controller, :action=>action, :id => id %>
+						</td>
+						<% is_link = true %>
+						<% break %>
+					<% end %><!-- end if attribute matches link --> 
+				<% end %> <!--end for each link-->
+				<% if (is_link == false) %>
+					<% if object[att].blank? %>
+						<% begin %>
+							<%= content_tag(:td, object.send(att)) %>
+						<% rescue %>
+							<%= content_tag(:td, att) %>
+						<% end %>
+					<% else %>
+						<%= content_tag(:td, object[att]) %>
+					<% end %>
+				<% end %> <!--end if-->
+			<% end %> <!--end for each attribute-->
+
+			<% if defined? edit_and_delete and edit_and_delete == true %>
+				<td>
+					<%= link_to "Edit", :controller=> controller, :action=>'edit', :id => id %>
+				</td>
+				<td>
+					<a href="" onclick="confirmDelete('<%=controller%>', <%=id%>)" >Delete</a>
+				</td>
+			<% end %>
+
+			<% if defined? remove_assoc and remove_assoc == true %>
+				<td>
+					<%= link_to "Remove", :controller=> params[:controller], :action=>'remove_' + controller.singularize, :id => params[:id], :person_id => id %>
+				</td>
+			<% end %>
+
+
+		<% end %> <!--end tr tag-->
+	<% end %><!--end row-->
+</table>

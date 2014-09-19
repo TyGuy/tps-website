@@ -1,0 +1,16 @@
+<h1>Core Member: <%=@cm.name %> (<%=@cm.year %>) <%= link_to " [Edit]", :action=>"edit", :id => @cm.id %></h1>
+
+<h3>Position: <%= @cm.position %></h3>
+<h3>Team: <%= @cm.team %></h3>
+<h3>Email: <%= @cm.email %></h3>
+<h3>Phone: <%= @cm.phone %></h3>
+<h3>Bio: <%= @cm.bio %></h3>
+
+<h3>Cohort: 
+	[[[<%= @cm.cohort_id %>
+	<% if @cm.cohort.blank? %>
+		<h5><%=@cm.first_name%> is not assigned to a cohort. You can make them a cohort leader of an existing cohort by clicking "Edit" above. Or, you can create a new cohort and make them the leader through the "Cohorts" tab, by clicking the green "Create New" button.</h5>
+	<% else %>
+		<%= link_to " #{@cm.cohort.title}", :controller=>"cohorts", :action=>"show", :id => @cm.cohort.id %>
+	<% end %>
+</h3>

@@ -1,0 +1,63 @@
+<h1>Mentor: <%= @mentor.name %><%= link_to " [Edit]", :action=>"edit", :id => @mentor.id %></h1>
+<p></p>
+
+<h3>Basic Info:</h3>
+<% headers = ["Mentor ID","First Name","Last Name","Email","Phone"] %>
+<% attributes = [:id, :first_name, :last_name, :email, :phone] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentor]} %>
+
+
+<h3>Demographics:</h3>
+<% headers = ["University","Major","Class Year","Hometown","Ethnicity","FLI/Minority Status"] %>
+<% attributes = [:university, :major, :grad_year, :hometown, :ethnicity, :demographics] %>
+<% links = [] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentor]} %>
+
+
+<h3>Cohort:</h3>
+<% if @cohort.blank? %>
+	<p>This mentor is not assigned to a cohort.</p>
+	<p>You can assign them to one now if you want.<p>
+	<%= form_tag( :action => "edit_cohort", :method => "post", :id=>@mentor.id ) do %>
+		<div>
+			<%= label_tag(:new_cohort_id,"Cohort: ") %>
+			<%= collection_select(:mentor, :cohort_id, Cohort.all, :id, :title) %>
+		</div>
+		<p></p>
+		<%= submit_tag("Assign to Cohort") %>
+	<% end %>
+<% else %>
+	<% headers = ["Cohort ID","Cohort Leaders"] %>
+	<% attributes = [:id, :title] %>
+	<% links = [{:attribute=>:title}] %>
+	<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cohort]} %>
+<% end %>
+
+<h3>Mentees:</h3>
+<% if @mentees.blank? %>
+	<p>This mentor has no mentees.</p>
+	<p>You can assign them to one now if you want.<p>
+	<%= form_tag( :action => "add_mentee", :method => "post", :id=>@mentor.id ) do %>
+		<div>
+			<%= label_tag(:new_mentee_id,"Mentee: ") %>
+			<%= collection_select(:mentor, :mentees, Mentee.current.accepted.unassigned.order(:first_name), :id, :name) %>
+		</div>
+		<p></p>
+		<%= submit_tag("Add Mentee") %>
+	<% end %>
+<% else %>
+	<% for mentee in @mentor.mentees do %>
+		<h3>Mentee: <%=mentee.name %></h3>
+		<% headers = ["Mentee ID","Name", "Highschool", "Email", "Phone"] %>
+		<% attributes = [:id, "name", "highschool_name", :email, :phone_1] %>
+		<% links = [{:attribute=>"name"}] %>
+		<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [mentee]} %>
+	<% end %>
+<% end %>
+
+
+
+<h3>Other:</h3>
+<p>This is <%=@mentor.first_name %>'s <%=@mentor.year_as_mentor%> year as a mentor.</p>
+

@@ -1,0 +1,54 @@
+<h1>Mentee: <%= @mentee.name %>
+	<%= link_to " [View]", :action=>"show", :id => @mentee.id %>
+	<button type="button" class="btn btn-large btn-danger">
+		<a href="" onclick="confirmDelete('mentees', <%=@mentee.id%>)" >Delete</a>
+	</button>
+</h1>
+<p></p>
+
+<h3>Edit Basic Info</h3>
+
+<% tag_text = ["First Name", "Last Name", "Address", "City", "State", "Email", "Phone 1", "Phone 2", "Ethnicity", "Program Status"] %>
+
+<% attributes = [ :first_name, :last_name, :street_address, :city, :state, 
+	:email, :phone_1, :phone_2, :ethnicity, :status] %>
+
+<% submit_text = "Save Changes" %>
+
+<% form_hash = {:action => "edit_basic", :method => "post", :id=>@mentee.id} %>
+
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text, object: @mentee} %>
+
+<div>&nbsp;</div>
+<h3>Change High School</h3>
+<%= form_tag( :action => "edit_highschool", :method => "post", :id=>@mentee.id ) do %>
+	<div>
+		<%= label_tag(:new_highschool_id, "High School: ") %>
+		<%= collection_select(:mentee, :highschool_id, Highschool.all, :id, :name) %>
+	</div>
+	<p></p>
+	<%= submit_tag("Change High School") %>
+<% end %>
+
+<div>&nbsp;</div>
+<% if @mentee.mentor.blank? %>
+	<h3>Add Mentor</h3>
+<% else %>
+	<h3>Change Mentor</h3>
+<% end %>
+<%= form_tag( :action => "edit_mentor", :method => "post", :id=>@mentee.id ) do %>
+	<div>
+		<%= label_tag(:new_mentor_id, "Mentor: ") %>
+		<%= collection_select(:mentee, :mentor_id, Mentor.get_available.order(:first_name), :id, :name) %>
+	</div>
+	<p></p>
+	<%= submit_tag("Change Mentor") %>
+<% end %>
+
+<% if not @mentee.mentor.blank? %>
+	<h3>Unassign Mentor</h3>
+	<% headers = ["Mentor ID","Name", "Email", "Phone"] %>
+	<% attributes = [:id, :name, :email, :phone] %>
+	<% links = [{:attribute=>:name, }] %>
+	<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@mentee.mentor], remove_assoc: true} %>
+<% end %>

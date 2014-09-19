@@ -1,0 +1,73 @@
+<!-- locals:
+- :active. Tells which menu item to highlight
+
+-->
+
+<!-- NAVBAR
+================================================== -->
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="active"><%= link_to "Home", :action=>"index" %></li>
+        <li><%= link_to "TPS in the News", :action=>"tps_in_the_news" %></li> 
+
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Our History", :action=>"our_history" %></li>
+            <li><%= link_to "Our Mission", :action=>"our_mission" %></li>
+            <li><%= link_to "Our Team", :action=>"our_team" %></li>
+             <li><%= link_to "Our Students", :action=>"our_students" %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Contact Us", :action=>"contact_us" %></li> 
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">What We Do <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+             <li><%= link_to "Our Process", :action=>"our_process" %></li>
+            <li><%= link_to "Our Impact", :action=>"our_impact" %></li>
+            <li><%= link_to "Program Timeline", :action=>"program_timeline" %></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Mentees<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "What is a Mentee?", :action=>"mentee_about" %></li>
+            <li><%= link_to "Apply", :action=>"mentee_apply" %></li>
+          </ul>
+        </li>
+
+         <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Mentors<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "What is a Mentor?", :action=>"mentor_about" %></li>
+            <li><%= link_to "Apply", :action=>"mentor_apply" %></li>
+          </ul>
+        </li>
+
+        <li><%= link_to "Donate", :action=>"donate" %></li>
+        <li><%= link_to "Get Involved", :action=>"get_involved" %></li>
+      </ul>
+
+<!--
+      <form class="navbar-form navbar-right" role="form">
+        <div class="form-group">
+          <input type="text" placeholder="User Name" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Login</button>
+      </form>
+-->
+
+
+    </div> <!-- end navbar-collapse collapse -->
+
+</div>

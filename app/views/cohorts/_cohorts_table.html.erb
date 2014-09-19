@@ -1,0 +1,19 @@
+<% mentor_headers = ["Mentor ID","First Name","Last Name"] %>
+<% core_member_headers = ["Leader ID","First Name","Last Name"] %>
+
+<% attributes = [:id, :first_name, :last_name] %>
+<% links = [{:attribute=>:id}] %>
+
+<% for cohort in @cohorts do %>
+	<% string = "Cohort " + cohort.id.to_s + ": " + cohort.title %>
+	<h3>
+		<%= link_to string, :action=>"show", :id=>cohort.id %>
+	</h3>
+	<div class="well">
+		<% cms = CoreMember.where(cohort_id: cohort.id) %>
+		<%= render partial: "shared/table", locals: {headers: core_member_headers, attributes: attributes, links: links, object_array: cms} %>
+		
+		<% mentors = Mentor.where(cohort_id: cohort.id) %>
+		<%= render partial: "shared/table", locals: {headers: mentor_headers, attributes: attributes, links: links, object_array: mentors} %>
+	</div>
+<% end %>

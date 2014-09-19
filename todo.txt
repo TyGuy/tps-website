@@ -1,0 +1,70 @@
+To Do:
+
+- make login secure
+
+
+- highschool: a way to merge 2 similar highschools
+
+
+
+- make email lists more comprehensive
+
+LIST OF UPDATES TO MAKE TO THE DATABASE TABLES
+================================================
+Mentor:
+ - app_id
+ ===============================================
+
+Farther away:
+ - set dates for meetings (and auto-send email)
+ - look at reviews of cohort 
+
+ - periodically back up DB files
+
+  - mentor page: have an overview of all mentors in the program (where they are, who they are)
+  - separate berkeley and stanford
+
+ - Flags - allow core team members to have the ability to flag mentees and/or mentors. (and resolve)
+     - we could add something for responsiveness specifically. (then we can tag the respective mentee/mentor when the other is flagged)
+ - Also Drop: allow people to drop mentees/mentors from the system.
+ - what about status history? Allow us to change acceptances to graduated, dropped, etc., and not lose intermdediate information.
+ 	- can create a separate entity called "statuses" and link mentees/mentors to it with associations. (like comments, etc.)
+ - College list
+ 	- add model into database about college list
+ 	- allow mentees to add that in.
+
+
+ON EMAIL LIST:
+===============================================================
+ - make an option for only stanford (not all including berkeley)
+===============================================================
+
+ - display numbers next to mentee (and in all tables)
+ - bulk accept mentees from applications 
+ - A way of downloading spreadsheet of all groups of people
+
+ - on matching, have mentees' applications visible
+ - change cohort view so that mentees and mentors match
+
+ - filter by different attributes and have that information visible
+ - "Breakdowns" page
+ - edit and/or delete comments
+ - way to assign a block of mentees at a time.
+
+ - detect mismatches and potential errors. 
+
+ THINGS TO DO IMMEDIATELY FROM SPRAT:
+ ========================================================
+ ********
+ - separate mentees with accepted and confirmed. (In general, implement mentee and mentor program history.
+   This will include "program milestones", status changes, and (un)responsiveness)
+ - Have numbers of mentors and mentees in cohort (and also the number of mentees/mentors that a cohort should have)
+
+ 
+
+
+
+
+
+
+

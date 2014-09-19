@@ -1,0 +1,18 @@
+<!--displays the list of mentees for a given mentor. Note that the instance variable @mentor must be defined-->
+<div class="well">
+	<% if defined? @mentor %>
+		<% if @mentor.mentees.blank? %>
+			<h5>You have not been assigned any mentees for the year <%=@mentor.year.to_s %>.</h5>
+		<% else %>
+			<% for mentee in @mentor.mentees do %>
+				<h3>Mentee: <%=mentee.name %></h3>
+				<% headers = ["Mentee ID","Name", "Highschool", "Email", "Phone"] %>
+				<% attributes = [:id, "name", "highschool_name", :email, :phone_1] %>
+				<% links = [{:attribute=>"name"}] %>
+				<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [mentee]} %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<p>Sorry, the current mentor (variable @mentor) could not be found, so mentees could not be displayed.</p>
+	<% end %>
+</div>

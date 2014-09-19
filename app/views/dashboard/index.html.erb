@@ -1,0 +1,64 @@
+<h3>Welcome to the Core Dashboard!
+	<% if @user.blank? %>
+		*(Please login to visit any other page)
+	<% end %>
+</h3>
+
+<div class="buffer"></div>
+
+
+<% if @user.blank? %>
+<h3>[Please log in to see any more data. Contact Tyler at tsdavis@stanford.edu (or text me) if you need login information.]</h3>
+<% else %>
+
+	<% for year in Constant.program_years %>
+		<h1>TPS Year: <%= year.to_s %></h1>
+
+		<!--get core member associated with user-->
+		<% @core_member = @user.get_core_member(year) %>
+		<% if not @core_member.blank? %>
+			<h3>My Cohorts:</h3>
+			<%= render partial: "core_members/my_cohort"%>
+
+			<!--get mentor associated with core member-->
+			<% @mentor = @core_member.mentor %>
+			<% if not @mentor.blank? %>
+				<h3>My Mentees:</h3>
+				<%= render partial: "mentors/my_mentees" %>
+			<% else %>
+				<% @mentor = Mentor.get_by_name_and_year(@core_member.first_name, @core_member.last_name, @core_member.year) %>
+				<% if not @mentor.blank? %>
+				<h3>Mentor Match Found</h3>
+					<%= render partial: "core_members/connect_to_mentor" %>
+				<% end %>
+			<% end %>
+		<% end %>
+		<div class="buffer"></div>
+		<div class="buffer"></div>
+	<% end %> <!--end for-->
+
+	<% if @user.login == ENV['MASTER_ADMIN_USER'] %>
+		<h3>You should probably only mess with this if you are Tyler.</h3>
+		<div class="well">
+			<p>No, seriously. Don't fuck with this. Unless you want to potentially delete a lot of information.</p>
+			<button type="button" class="btn btn-primary"><%= link_to "Download All DB Files", "dashboard/download_all", :target => '_blank' %></button>
+
+			<button type="button" class="btn btn-primary"><%= link_to "Backup All DB Files", :action =>"backup_all"%></button>
+
+			<button type="button" class="btn btn-primary"><%= link_to "Update Apps", :action =>"update_all_apps"%></button>
+
+			<button type="button" class="btn btn-primary"><%= link_to "Add Berkeley Mentors", :action =>"add_berkeley_mentors"%></button>
+
+			<button type="button" class="btn btn-danger"><%= link_to "Reload Data From Backup", :action =>"reload_from_backup"%></button>
+			
+			<button type="button" class="btn btn-danger"><%= link_to "RollBack and Reload Data From Backup", :action =>"rollback_and_reload_from_backup"%></button>
+
+		</div>
+	<% end %>
+<% end %>
+
+<div class="well">
+	<h5>
+		What's up core team! Pretty soon this page will have all kinds of cool features, like bar graphs and pie charts. But for now, this is where you start! You can view all of this past years mentors and mentees, and also look at applications for this coming year's mentees and mentors. Follow the links above to move around the website. Feel free to email me (Tyler, tsdavis@stanford.edu) with issues or things you would like to see differently. Enjoy!
+	</h5>
+</div>

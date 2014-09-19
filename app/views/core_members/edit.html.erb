@@ -1,0 +1,31 @@
+<h1>
+	Core Team Member: <%= @cm.name %>
+	<%= link_to " [View]", :action=>"show", :id => @cm.id %>
+	<button type="button" class="btn btn-large btn-danger">
+		<a href="" onclick="confirmDelete('core_members', <%=@cm.id%>)" >Delete</a>
+</h1>
+<p></p>
+
+<h3>Edit Basic Info</h3>
+
+<% tag_text = ["First Name", "Last Name", "Email", "Phone", "Team", "Position", "Bio" ] %>
+
+<% attributes = [ :first_name, :last_name, :email, :phone, :team, 
+	:position, :bio] %>
+
+<% submit_text = "Save Changes" %>
+
+<% form_hash = {:action => "edit_basic", :method => "post", :id=>@cm.id} %>
+
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text, object: @cm} %>
+
+<h3>Change Cohort</h3>
+
+<%= form_tag( :action => "edit_cohort", :method => "post", :id=>@cm.id ) do %>
+	<div>
+		<%= label_tag(:new_cohort_id,"Cohort: ") %>
+		<%= collection_select(:core_member, :cohort_id, Cohort.current, :id, :title) %>
+	</div>
+	<p></p>
+	<%= submit_tag("Update Cohort") %>
+<% end %>

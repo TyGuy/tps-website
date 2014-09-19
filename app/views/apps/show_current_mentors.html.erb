@@ -1,0 +1,25 @@
+<h1>Current Mentor Applications
+	<button type="button" class="btn btn-primary"><%= link_to "View All", :action=>"show_current_mentors", :filter => "false" %></button>
+	<button type="button" class="btn btn-primary"><%= link_to "View Assigned to Me", :action=>"show_current_mentors", :filter => "true" %></button>
+
+	<button type="button" class="btn btn-primary">
+		<%= link_to "Check for New Apps", :controller => "mentors", :action=>"update_apps"%>
+	</button>
+
+</h1>
+<p>('*' by the score indicates that one or both readers have not scored the app yet)<p>
+
+<% headers = ["Mentor ID","First Name","Last Name","Gender","Hometown", "Application", "Score", "Reader 1", "Create/Change Reader 1", "Reader 2", "Create/Change Reader 2"] %>
+
+
+<h3>Unread Mentor Applications (no decision made yet):</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @unread_mentors} %>
+
+<h3>Accepted Mentors:</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @accepted_mentors} %>
+
+<h3>Waitlisted Mentors:</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @waitlist_mentors} %>
+
+<h3>Rejected Mentors:</h3>
+<%= render partial: "shared/app_table", locals: {headers: headers, object_array: @rejected_mentors} %>

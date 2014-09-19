@@ -1,0 +1,64 @@
+<!--locals: headers, object_array...-->
+<table cellspacing="0" class="table table-striped table-bordered">
+	<tr>
+		<% for header in headers do %>
+			<%= content_tag(:th, header) %>
+		<% end %>
+	</tr>
+	<% object_array = object_array.sort_by { |obj| obj.app.score } %>
+	<% object_array = object_array.reverse %>
+	<% object_array.each do |object| %>
+		<%= content_tag :tr do %>
+			<%= content_tag(:td, object.id) %>
+			<%= content_tag(:td, object.first_name) %>
+			<%= content_tag(:td, object.last_name) %>
+			<%= content_tag(:td, object.gender) %>
+			<% begin %>
+				<%= content_tag(:td, object.city) %>
+			<% rescue %>
+				<%= content_tag(:td, object.hometown) %>
+			<% end %>
+			<td>
+				<% controller = object.class.name.split('::').last.downcase + 's' %>
+				<%= link_to "Read App", :controller=>controller,:action => "view_app", :id=>object.id%>
+			</td>
+
+			<% score_text = object.app.score.to_s %>
+			<% if object.app.still_unread %>
+				<% score_text += "*" %>
+			<% end %>
+			<%= content_tag(:td, score_text) %>
+
+			<% if not object.app.reader_1.blank? %>
+				<% cm = CoreMember.find(object.app.reader_1) %>
+				<%= content_tag(:td, cm.name) %>
+			<% else %>
+				<%= content_tag(:td, "") %>
+			<% end %>
+			<td>
+				<%= form_tag( :class=>"form-inline", :controller=>"apps", :action => "assign", :method => "post", :id=>object.app.id ) do %>
+					
+					<%= label_tag(:new_core_member_id, "CoreMember", :class=>"sr-only") %>
+					<%= collection_select(:app, :reader_1, @readers, :id, :name) %>
+					<%= submit_tag("Assign!") %>
+				<% end %>
+			</td>
+
+			<% if not object.app.reader_2.blank? %>
+				<% cm = CoreMember.find(object.app.reader_2) %>
+				<%= content_tag(:td, cm.name) %>
+			<% else %>
+				<%= content_tag(:td, "") %>
+			<% end %>
+			<td>
+				<%= form_tag( :class=>"form-inline", :controller=>"apps", :action => "assign", :method => "post", :id=>object.app.id ) do %>
+					
+					<%= label_tag(:new_core_member_id, "CoreMember", :class=>"sr-only") %>
+					<%= collection_select(:app, :reader_2, @readers, :id, :name) %>
+					<%= submit_tag("Assign!") %>
+				<% end %>
+			</td>
+
+		<% end %>
+	<% end %>
+</table>

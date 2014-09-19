@@ -1,0 +1,15 @@
+<h1>Add New Core Team Member</h1>
+<p></p>
+
+<h3>Basic Info</h3>
+
+<% tag_text = ["First Name", "Last Name", "Email", "Phone", "Team", "Position", "Bio" ] %>
+
+<% attributes = [ :first_name, :last_name, :email, :phone, :team, 
+	:position, :bio] %>
+
+<% submit_text = "Save Changes" %>
+
+<% form_hash = {:action => "add", :method => "post"} %>
+
+<%= render partial: "shared/edit_form", locals: {tag_text: tag_text, attributes: attributes, form_hash: form_hash, submit_text: submit_text} %>

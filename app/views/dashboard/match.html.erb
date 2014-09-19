@@ -1,0 +1,204 @@
+
+<h1 class="text-center">Mentee and Mentor Matching</h1>
+<h5>[Note: the mentees shown (on the left) are all accepted mentees for 2014 that do not have a mentor. The mentors shown (on the right) are all the mentors for 2014 that are in your cohort (or, if you do not have a cohort, you will see all the mentors that also do not have a cohort).]</h5>
+<hr class="td-solid-black"/>
+
+<% if (not @cur_mentee.blank?) and (not @cur_mentor.blank?) %>
+<div class="row">
+    <div class="col-md-2 col-md-offset-5">
+		<button type="button" class="btn btn-large btn-success"><%= link_to "Match "+@cur_mentee.first_name + " and " + @cur_mentor.first_name, :action => "actually_match", :mentee_id => @cur_mentee.id, :mentor_id => @cur_mentor.id %></button>
+	</div>
+</div>
+
+<hr class="td-solid-black"/>
+<% end %>
+
+<% if not @cur_mentor.blank? %>
+	<% cur_mentor_id = @cur_mentor.id %>
+<% else %>
+	<% cur_mentor_id = nil %>
+<% end %>
+<% if not @cur_mentee.blank? %>
+	<% cur_mentee_id = @cur_mentee.id %>
+<% else %>
+	<% cur_mentee_id = nil %>
+<% end %>
+
+<div class="container-fluid td-full-height">
+ 	<div class="row">
+
+   		<div class="col-md-2">
+   			<table cellspacing="0" class="table table-striped table-bordered">
+				<tr>
+					<th>Un-Matched Mentees</th>
+				</tr>
+				<% @mentees.each do |mentee| %>
+					<%= content_tag :tr do %>
+						<td>
+							<%= link_to mentee.name, :action=>"match", :mentee_id => mentee.id, :mentor_id=>cur_mentor_id %>
+						</td>
+					<% end %>
+				<% end %>
+			</table>
+   		</div>
+
+   		<div class="col-md-4" style="border-right:1px solid black">
+
+   			<% if not @cur_mentee.blank? %>
+	   			<h3 class="text-center"><%= @cur_mentee.name %></h3>
+	   			<div class="row">
+					<!--set col_width, for all panels in this section-->
+					<% col_width = "6" %>
+
+					<!--first gen low income panel-->
+
+					<% body = "First gen college student: "  + @cur_mentee.is_first_gen + "\nLow income student: " + @cur_mentee.free_lunch %>
+					<%= render partial: "shared/panel", locals: {title: "FLI Status", body: body, col_width: col_width, type: "info" } %>
+
+					<!--ethnicity panel-->
+					<% body = @cur_mentee.first_name + "'s ethnicity is: " + @cur_mentee.ethnicity%>
+					<%= render partial: "shared/panel", locals: {title: "Ethnicity", body: body, col_width: col_width, type: "info" } %>
+
+					<!--hometown panel-->
+					<% body = @cur_mentee.first_name + " is from " + @cur_mentee.city + ", " + @cur_mentee.state + "."%>
+					<%= render partial: "shared/panel", locals: {title: "Hometown", body: body, col_width: col_width, type: "info" } %>	
+
+					<!--hometown panel-->
+					<% body = @cur_mentee.first_name + "is " + @cur_mentee.gender + "."%>
+					<%= render partial: "shared/panel", locals: {title: "Gender", body: body, col_width: col_width, type: "info" } %>			
+				</div>
+
+				<div class="row">
+				<div class="col-md-12">
+				<h3>Basic Info:</h3>
+				<% headers = ["Mentee ID","First Name","Last Name","Gender","Hometown"] %>
+				<% attributes = [:id, :first_name, :last_name, :gender, :city] %>
+				<% links = [] %>
+				<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentee]} %>
+				</div>
+				</div>
+
+				<h3>Contact Info:</h3>
+				<% headers = ["Email", "Cell Phone", "(Can text?)", "Secondary Phone"] %>
+				<% attributes = [:email, :phone_1, :phone_1_can_text, :phone_2] %>
+				<% links = [] %>
+				<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentee]} %>
+
+				<h3>Demographic Info:</h3>
+				<% headers = ["Gender","Ethnicity","Free Lunch?","Household Income Range","People in Household", "First Gen College Student?"] %>
+				<% attributes = [:gender, :ethnicity, :free_lunch, :income_range, :people_in_home, :is_first_gen] %>
+				<% links = [] %>
+				<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentee]} %>
+
+				<h3>Highschool:</h3>
+				<% headers = ["Name", "City", "State", "Number of Students", "Number of Guidance Counselors"] %>
+				<% attributes = [:name, :city, :state, :num_students, :num_counselors] %>
+				<% links = [{:attribute=>:name}] %>
+				<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentee.highschool]} %>
+
+				<h3>Academics:</h3>
+				<% headers = ["Unweighted GPA", "Weighted GPA", "Highest SAT or PSAT score", "Highest ACT Composite Score"] %>
+				<% attributes = [:GPA_u, :GPA_w, :SAT, :ACT] %>
+				<% links = [] %>
+				<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentee]} %>
+
+				<% if not @cur_mentee.app.blank? %>
+					<div class="row">
+						<div class="col-md-12">
+							<h3>Mentor Preferences:</h3>
+							<% for question in @cur_mentee.get_mentor_preferences %>
+								<p><b><%= question.Q %></b></p>
+								<p><%= question.A %></p>
+							<% end %>
+							
+							<h3>Application Questions:</h3>
+							<% for question in @cur_mentee.app.questions %>
+								<p><b><%= question.Q %></b></p>
+								<p><%= question.A %></p>
+							<% end %>
+
+						</div>
+					</div>
+				<% end %>
+
+				
+			<%end%>
+	   	</div>
+
+   		<div class="col-md-4">
+   			<% if not @cur_mentor.blank? %>
+			<h3 class="text-center"><%= @cur_mentor.name %></h3>
+
+			<div class="elegibility-content">
+				<div class="row">
+
+					<!--set col_width, for all panels in this section-->
+					<% col_width = "6" %>
+
+
+					<!--first year panel-->
+					<% if not @cur_mentor.other_ids.blank? %>
+						<% body = @cur_mentor.first_name + " has been a mentor before." %>
+						<% type = "info" %>
+					<% else %> 
+						<% body = @cur_mentor.first_name + " has not been a mentor before." %>
+						<% type = "info" %>
+					<% end %>
+					<%= render partial: "shared/panel", locals: {title: "Previous Mentor", body: body, col_width: col_width, type: type } %>	
+
+					<!--num mentees panel-->
+					<% body = "Number mentees requested: " + @cur_mentor.num_mentees_requested.to_s + 
+					"\nCurrently has: " + @cur_mentor.mentees.length.to_s %>
+					<%= render partial: "shared/panel", locals: {title: "Number of Mentees", body: body, col_width: col_width, type: "info" } %>	
+				</div>
+			</div>
+
+			<h3>Basic Info:</h3>
+			<% headers = ["Mentor ID","First Name","Last Name","Gender"] %>
+			<% attributes = [:id, :first_name, :last_name, :gender ] %>
+			<% links = [] %>
+			<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentor]} %>
+
+			<h3>Contact Info:</h3>
+			<% headers = ["Hometown", "State", "Email", "Cell Phone", "PO Box"] %>
+			<% attributes = [:hometown, :state, :email, :phone, :PO_box] %>
+			<% links = [] %>
+			<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentor]} %>
+
+			<h3>Demographic/Other Info:</h3>
+			<% headers = ["Gender","Demographic Information","Graduation Year", "Major", "Previous Mentor?"] %>
+			<% attributes = [:gender, :demographics, :grad_year, :major, :prior_mentor] %>
+			<% links = [] %>
+			<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: [@cur_mentor]} %>
+
+
+			<h3>Application Questions:</h3>
+			<% if @cur_mentor.app.blank? %>
+				<h3>[No Application found for this Mentor]</h3>
+			<% else %>
+				<% for question in @cur_mentor.app.questions do %>
+					<p><b><%= question.Q %></b></p>
+					<p><%= question.A%></p>
+					<p>&nbsp;</p>
+				<% end %>
+			<% end %>
+		<% end %>
+	   	</div>
+
+	   		<div class="col-md-2">
+	   			<table cellspacing="0" class="table table-striped table-bordered">
+					<tr>
+						<th>Mentors in My Cohort</th>
+					</tr>
+					<% @mentors.each do |mentor| %>
+						<%= content_tag :tr do %>
+							<td>
+								<%= link_to mentor.name, :action=>"match", :mentor_id => mentor.id, :mentee_id=>cur_mentee_id %>
+							</td>
+						<% end %>
+					<% end %>
+				</table>
+	   		</div>
+
+	 	</div>
+</div>

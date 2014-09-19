@@ -1,0 +1,23 @@
+ <h3>Hey, <%= @user.first_name %>! </h3>
+<div class="buffer"></div>
+<h3>Change Password</h3>
+  <%= form_tag(:controller=>"users", :action => "change_password", :method => "post") do %>
+	<div>
+		<%= label_tag(:cur_password, "Current Password:") %>
+		<%= password_field_tag(:cur_password) %>
+	</div>
+	<p></p>
+	<div>
+		<%= label_tag(:new_password, "New Password:") %>
+		<%= password_field_tag(:new_password) %>
+	</div>
+	<div>
+	<p></p>
+		<%= label_tag(:confirm_new_password, "Confirm New Password:") %>
+		<%= password_field_tag(:confirm_new_password) %>
+	</div>
+	<p></p>
+	<%= submit_tag("Change Password") %>
+<% end %>
+<p>Note: Passwords must be at least 8 characters.</p>
+

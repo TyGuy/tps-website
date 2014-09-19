@@ -1,0 +1,5 @@
+#ignore secret stuff
+rootkey.csv
+
+#ignore zipped backups
+*.zip
