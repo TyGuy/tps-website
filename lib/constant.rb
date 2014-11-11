@@ -7,7 +7,7 @@ class Constant
 		return {
 			#These have readonly permissions so I don't accidentally delete shit.
 			:tps_login => "tytheguy08@gmail.com",
-			:tps_password => "",
+			:tps_password => ENV['TPS_TY_GUY_EMAIL_PW'],
 
 			:mentee_app_filename => "Phoenix Scholars Application 2014 (Responses)",
 			:mentor_app_filename => "2014 TPS Mentor Application (Responses)",

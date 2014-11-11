@@ -12,6 +12,6 @@ ActionMailer::Base.smtp_settings = {
    :domain => "google.com",
    :authentication => 'plain',
    :user_name => "phoenix.scholars.it@gmail.com",
-   :password => "",
+   :password => ENV['TPS_IT_EMAIL_PW'],
    :enable_starttls_auto => true
 }
