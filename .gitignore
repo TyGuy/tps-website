@@ -4,3 +4,4 @@ rootkey.csv
 #ignore zipped backups
 *.zip
 .elasticbeanstalk/
+aws_keys.txt
