@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
-	def login()
+  before_action :require_login, only: [:logout, :change_password, :settings]
+
+  def login()
 		user = User.find_by_login(params[:user_login])
 		if user.blank?
 			flash[:error] = "Sorry, the user name \"" +params[:user_login] +"\" does not exist. Please try again."

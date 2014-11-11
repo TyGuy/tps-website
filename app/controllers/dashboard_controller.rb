@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
 
-	before_action :require_admin, only: [:admin, :backup_all]
-	before_action :require_login, only: [:download_all]
+	before_action :require_admin, only: [:admin, :backup_all, :add_berkeley_mentors, :load_initial_data, :rollback_and_reload_from_backup, :reload_from_backup, :get_db_size]
+	before_action :require_login, only: [:download_all, :view_emails, :email_list, :match, :actually_match, :show_issues, :summaries, :feedback, :mail_feedback ]
 
 	def index()
 		if session[:user_id]
