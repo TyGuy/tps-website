@@ -3,3 +3,4 @@ rootkey.csv
 
 #ignore zipped backups
 *.zip
+.elasticbeanstalk/
