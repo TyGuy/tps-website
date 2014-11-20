@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140404021819) do
+ActiveRecord::Schema.define(version: 20141120023419) do
 
   create_table "apps", force: true do |t|
     t.string   "mentee_id"
@@ -65,6 +65,18 @@ ActiveRecord::Schema.define(version: 20140404021819) do
     t.datetime "updated_at"
   end
 
+  create_table "events", force: true do |t|
+    t.string   "timestamp"
+    t.string   "person_id"
+    t.string   "event_type"
+    t.string   "title"
+    t.string   "description"
+    t.string   "flag"
+    t.string   "resolved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "highschools", force: true do |t|
     t.string   "name"
     t.string   "address"
@@ -73,6 +85,23 @@ ActiveRecord::Schema.define(version: 20140404021819) do
     t.string   "num_students"
     t.string   "num_counselors"
     t.string   "website"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mentee_outreach_responses", force: true do |t|
+    t.string   "mentee_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "response_type"
+    t.string   "highschool_id"
+    t.string   "t_msg_id"
+    t.string   "t_msg_from_city"
+    t.string   "t_msg_from_state"
+    t.string   "t_msg_from_zip"
+    t.string   "t_msg_body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -152,6 +181,11 @@ ActiveRecord::Schema.define(version: 20140404021819) do
   create_table "surveys", force: true do |t|
     t.string   "mentee_id"
     t.string   "mentor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_sessions", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

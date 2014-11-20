@@ -47,6 +47,8 @@ gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 #gem 'chartkick', :git => 'https://github.com/TyGuy/chartkick'
 gem "chartkick"
 
+gem 'twilio-ruby'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
