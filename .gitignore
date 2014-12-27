@@ -5,3 +5,7 @@ rootkey.csv
 *.zip
 .elasticbeanstalk/
 aws_keys.txt
+
+#ignore files generated from different running instances.
+tmp/
+log/
