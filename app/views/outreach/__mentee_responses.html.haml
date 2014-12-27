@@ -1,0 +1,14 @@
+- headers = ['First Name', 'Last Name', 'Phone Number','Email']
+
+%h1= "Mentee Outreach - Responses & Contact Info"
+
+%table.table.table-striped.table-bordered
+  %tr
+    - headers.each do |h|
+      %th= h
+  - @responses.each do |response|
+    %tr
+      %td= response.first_name
+      %td= response.last_name
+      %td= response.phone
+      %td= response.email

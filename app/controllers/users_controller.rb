@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :require_login, only: [:logout, :change_password, :settings]
+  before_action :require_login, except: [:login]
 
   def login()
 		user = User.find_by_login(params[:user_login])

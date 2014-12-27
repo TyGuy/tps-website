@@ -13,6 +13,7 @@ class CreateMenteeOutreachResponses < ActiveRecord::Migration
       t.string :t_msg_from_state
       t.string :t_msg_from_zip
       t.string :t_msg_body
+      t.datetime :sent_at
       t.timestamps
     end
   end

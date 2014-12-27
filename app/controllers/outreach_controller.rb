@@ -1,16 +1,23 @@
 require 'twilio-ruby'
 
-class TwilioController < ApplicationController
+class OutreachController < ApplicationController
   include Webhookable
 
-  after_filter :set_header
+  WEBHOOK_METHODS = [:message_from_mentee_outreach]
 
-  skip_before_action :verify_authenticity_token
+  before_action :require_login, :except => WEBHOOK_METHODS
+  after_filter :set_header, :only => WEBHOOK_METHODS
+  skip_before_action :verify_authenticity_token, :only => WEBHOOK_METHODS
 
-  #webhook for when mentees text the outreach number
+
+  #webhook for when mentees text the outreach number (Twilio)
   def message_from_mentee_outreach
     MenteeOutreachResponse.process_text(params)
     render text: ''
+  end
+
+  def mentee_responses
+    @responses = MenteeOutreachResponse.all
   end
 
 end

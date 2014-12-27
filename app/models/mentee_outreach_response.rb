@@ -12,7 +12,8 @@ class MenteeOutreachResponse < ActiveRecord::Base
           :last_name => parsed_body[:last_name],
           :email => parsed_body[:email],
           :phone => params[:From],
-          :response_type => 'text'
+          :response_type => 'text',
+          :sent_at=>Time.now
       })
     else
       m = MenteeOutreachResponse.where(:phone=>params[:From]).first
@@ -27,7 +28,7 @@ class MenteeOutreachResponse < ActiveRecord::Base
     m.t_msg_from_zip = params[:FromZip]
     m.t_msg_from_state = params[:FromState]
     parsed_body = parse_msg_body(params[:Body])
-    m.email = parsed_body.email if body_has_email?(params[:Body])
+    m.email = parsed_body[:email] if body_has_email?(params[:Body])
     unless body_has_only_email?(params[:Body])
       m.first_name = parsed_body[:first_name]
       m.last_name = parsed_body[:last_name]
@@ -48,10 +49,12 @@ class MenteeOutreachResponse < ActiveRecord::Base
     out = {}
     unless new_body.match(Helpers::EMAIL_REGEX).nil?
       out[:email] = new_body.match(Helpers::EMAIL_REGEX).to_s
-      new_body = new_body.sub(EMAIL_REGEX,'')
+      new_body = new_body.sub(Helpers::EMAIL_REGEX,'')
     end
-    out[:first_name] = new_body.split(/\s/).first[/[a-z]+/i]
-    out[:last_name] = new_body.sub(new_body.split(/\s/).first,'')
+    unless new_body.split(/\s/).blank?
+      out[:first_name] = new_body.split(/\s/).first[/[a-z]+/i]
+      out[:last_name] = new_body.sub(new_body.split(/\s/).first,'').sub(',','')
+    end
     out
   end
 

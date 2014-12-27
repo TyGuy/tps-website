@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20141120023419) do
     t.string   "t_msg_from_state"
     t.string   "t_msg_from_zip"
     t.string   "t_msg_body"
+    t.datetime "sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
