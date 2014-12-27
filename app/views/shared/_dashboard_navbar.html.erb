@@ -7,7 +7,7 @@
         <li><%= link_to "Home", :controller => "dashboard", :action => "index" %></li> 
 
         <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown">People/Groups<b class="caret"></b></a>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Groups<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><%= link_to "Mentees", :controller => "mentees", :action => "show_all" %></li>
             <li><%= link_to "Mentors", :controller => "mentors", :action => "show_all" %></li>
@@ -25,6 +25,16 @@
           </ul>
         </li>
 
+        <li><%= link_to "Summaries", :controller => "dashboard", :action => "summaries" %></li>
+        <li><%= link_to "Send Feedback", :controller => "dashboard", :action => "feedback" %></li>
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Outreach<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Mentee Responses", :controller => "outreach", :action => "mentee_responses" %></li>
+          </ul>
+        </li>
+
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Other<b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -34,8 +44,7 @@
           </ul>
         </li>
 
-        <li><%= link_to "Summaries", :controller => "dashboard", :action => "summaries" %></li>
-        <li><%= link_to "Send Feedback", :controller => "dashboard", :action => "feedback" %></li> 
+
 
 
 

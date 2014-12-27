@@ -6220,3 +6220,188 @@ Migrating to CreateMenteeOutreachResponses (20141120023419)
   [1m[35mSQL (5.1ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20141120023419')
   [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
   [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+
+
+Started GET "/" for 127.0.0.1 at 2014-12-27 12:12:08 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by DashboardController#index as HTML
+  [1m[35mActiveRecord::SessionStore::Session Load (0.6ms)[0m  SELECT `sessions`.* FROM `sessions` WHERE `sessions`.`session_id` = 'a4e43f2709235a04eca379c30a966965' ORDER BY `sessions`.`id` ASC LIMIT 1
+  Rendered dashboard/index.html.erb within layouts/application (5.5ms)
+  Rendered shared/_dashboard_navbar.html.erb (6.5ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users`[0m
+Completed 200 OK in 214ms (Views: 188.0ms | ActiveRecord: 10.0ms)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (5.4ms)[0m  [1mUPDATE `sessions` SET `data` = 'BAh7BkkiEF9jc3JmX3Rva2VuBjoGRUZJIjE2QXl3UXdmUmZWSWs3Skw2enRU\nQ0NLKzJlWWE2U2M4eS9VdUczZDBJODFZPQY7AEY=\n', `updated_at` = '2014-12-27 20:12:08' WHERE `sessions`.`id` = 11[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:09 -0800
+
+
+Started GET "/assets/docs.min.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:09 -0800
+
+
+Started GET "/assets/jquery.min.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:09 -0800
+
+
+Started GET "/assets/tps.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:09 -0800
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/tables.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/bootstrap-theme.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/chartkick.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/glyphicons-halflings-regular.woff" for 127.0.0.1 at 2014-12-27 12:12:10 -0800
+
+
+Started GET "/assets/favicon.ico" for 127.0.0.1 at 2014-12-27 12:12:11 -0800
+
+
+Started GET "/outreach/mentee_responses" for 127.0.0.1 at 2014-12-27 12:12:15 -0800
+Processing by OutreachController#mentee_responses as HTML
+  [1m[36mActiveRecord::SessionStore::Session Load (0.6ms)[0m  [1mSELECT `sessions`.* FROM `sessions` WHERE `sessions`.`session_id` = 'a4e43f2709235a04eca379c30a966965' ORDER BY `sessions`.`id` ASC LIMIT 1[0m
+Redirected to http://4ac4f2f3.ngrok.com/
+Filter chain halted as :require_login rendered or redirected
+Completed 302 Found in 4ms (ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mUPDATE `sessions` SET `data` = 'BAh7CEkiEF9jc3JmX3Rva2VuBjoGRUZJIjE2QXl3UXdmUmZWSWs3Skw2enRU\nQ0NLKzJlWWE2U2M4eS9VdUczZDBJODFZPQY7AEZJIhxfdHVyYm9saW5rc19y\nZWRpcmVjdF90bwY7AEZJIh9odHRwOi8vNGFjNGYyZjMubmdyb2suY29tLwY7\nAEZJIgpmbGFzaAY7AEZ7B0kiDGRpc2NhcmQGOwBGWwBJIgxmbGFzaGVzBjsA\nRnsGOgplcnJvckkiOVNvcnJ5LCB5b3UgbXVzdCBiZSBsb2dnZWQgaW4gdG8g\ncGVyZm9ybSB0aGF0IGFjdGlvbi4GOwBG\n', `updated_at` = '2014-12-27 20:12:16' WHERE `sessions`.`id` = 11[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+
+
+Started GET "/" for 127.0.0.1 at 2014-12-27 12:12:16 -0800
+Processing by DashboardController#index as HTML
+  [1m[36mActiveRecord::SessionStore::Session Load (0.6ms)[0m  [1mSELECT `sessions`.* FROM `sessions` WHERE `sessions`.`session_id` = 'a4e43f2709235a04eca379c30a966965' ORDER BY `sessions`.`id` ASC LIMIT 1[0m
+  Rendered dashboard/index.html.erb within layouts/application (1.1ms)
+  Rendered shared/_dashboard_navbar.html.erb (6.3ms)
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users`
+Completed 200 OK in 24ms (Views: 21.0ms | ActiveRecord: 1.0ms)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE `sessions` SET `data` = 'BAh7B0kiEF9jc3JmX3Rva2VuBjoGRUZJIjE2QXl3UXdmUmZWSWs3Skw2enRU\nQ0NLKzJlWWE2U2M4eS9VdUczZDBJODFZPQY7AEZJIgpmbGFzaAY7AEZ7B0ki\nDGRpc2NhcmQGOwBGWwY6CmVycm9ySSIMZmxhc2hlcwY7AEZ7BjsGSSI5U29y\ncnksIHlvdSBtdXN0IGJlIGxvZ2dlZCBpbiB0byBwZXJmb3JtIHRoYXQgYWN0\naW9uLgY7AEY=\n', `updated_at` = '2014-12-27 20:12:16' WHERE `sessions`.`id` = 11
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/users/login?method=post" for 127.0.0.1 at 2014-12-27 12:12:24 -0800
+Processing by UsersController#login as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"6AywQwfRfVIk7JL6ztTCCK+2eYa6Sc8y/UuG3d0I81Y=", "user_login"=>"tylerdavis", "password"=>"[FILTERED]", "commit"=>"Login", "method"=>"post"}
+  [1m[35mActiveRecord::SessionStore::Session Load (0.5ms)[0m  SELECT `sessions`.* FROM `sessions` WHERE `sessions`.`session_id` = 'a4e43f2709235a04eca379c30a966965' ORDER BY `sessions`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`login` = 'tylerdavis' LIMIT 1[0m
+Redirected to http://4ac4f2f3.ngrok.com/
+Completed 302 Found in 5ms (ActiveRecord: 0.9ms)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE `sessions` SET `data` = 'BAh7CEkiEF9jc3JmX3Rva2VuBjoGRUZJIjE2QXl3UXdmUmZWSWs3Skw2enRU\nQ0NLKzJlWWE2U2M4eS9VdUczZDBJODFZPQY7AEZJIgpmbGFzaAY7AEZ7B0ki\nDGRpc2NhcmQGOwBGWwY6CmVycm9ySSIMZmxhc2hlcwY7AEZ7BjsGSSI5U29y\ncnksIHlvdSBtdXN0IGJlIGxvZ2dlZCBpbiB0byBwZXJmb3JtIHRoYXQgYWN0\naW9uLgY7AEZJIgx1c2VyX2lkBjsARmkDa/IN\n', `updated_at` = '2014-12-27 20:12:24' WHERE `sessions`.`id` = 11[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+
+
+Started GET "/" for 127.0.0.1 at 2014-12-27 12:12:24 -0800
+Processing by DashboardController#index as HTML
+  [1m[36mActiveRecord::SessionStore::Session Load (0.5ms)[0m  [1mSELECT `sessions`.* FROM `sessions` WHERE `sessions`.`session_id` = 'a4e43f2709235a04eca379c30a966965' ORDER BY `sessions`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 914027 LIMIT 1
+  [1m[36mCoreMember Load (0.5ms)[0m  [1mSELECT `core_members`.* FROM `core_members` WHERE `core_members`.`id` = 914027 AND `core_members`.`year` = 2014 LIMIT 1[0m
+  Rendered core_members/_my_cohort.html.erb (55.4ms)
+  [1m[35mMentor Load (1.0ms)[0m  SELECT `mentors`.* FROM `mentors` WHERE `mentors`.`core_member_id` = 914027 ORDER BY `mentors`.`id` ASC LIMIT 1
+  [1m[36mMentor Load (1.3ms)[0m  [1mSELECT `mentors`.* FROM `mentors` WHERE (first_name LIKE '%Tyler%' and last_name LIKE '%Davis%')[0m
+  [1m[35mCoreMember Load (0.5ms)[0m  SELECT `core_members`.* FROM `core_members` WHERE `core_members`.`id` = 914027 AND `core_members`.`year` = 2013 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `core_members`.* FROM `core_members` WHERE `core_members`.`id` = 914027 AND `core_members`.`year` = 2014 LIMIT 1[0m
+  [1m[35mCoreMember Load (0.4ms)[0m  SELECT `core_members`.* FROM `core_members` WHERE (first_name LIKE '%Tyler%' and last_name LIKE '%Davis%' and year = 2013)
+  [1m[36mCohort Load (0.3ms)[0m  [1mSELECT `cohorts`.* FROM `cohorts` WHERE `cohorts`.`id` = 7 ORDER BY `cohorts`.`id` ASC LIMIT 1[0m
+  [1m[35mCoreMember Load (0.6ms)[0m  SELECT `core_members`.* FROM `core_members` WHERE `core_members`.`cohort_id` = 7
+  Rendered shared/_table.html.erb (5.7ms)
+  [1m[36mMentor Load (1.0ms)[0m  [1mSELECT `mentors`.* FROM `mentors` WHERE `mentors`.`cohort_id` = 7[0m
+  Rendered shared/_table.html.erb (56.3ms)
+  [1m[35mMentee Load (2.5ms)[0m  SELECT `mentees`.* FROM `mentees` INNER JOIN `mentors` ON `mentees`.`mentor_id` = `mentors`.`id` WHERE `mentors`.`cohort_id` = 7
+  Rendered shared/_table.html.erb (74.7ms)
+  Rendered cohorts/_cohort_table.html.erb (180.2ms)
+  Rendered core_members/_my_cohort.html.erb (202.3ms)
+  [1m[36mMentor Load (0.6ms)[0m  [1mSELECT `mentors`.* FROM `mentors` WHERE `mentors`.`core_member_id` = 913027 ORDER BY `mentors`.`id` ASC LIMIT 1[0m
+  [1m[35mMentee Load (1.3ms)[0m  SELECT `mentees`.* FROM `mentees` WHERE `mentees`.`mentor_id` = 213072
+  [1m[36mHighschool Load (0.4ms)[0m  [1mSELECT `highschools`.* FROM `highschools` WHERE `highschools`.`id` = 11 ORDER BY `highschools`.`id` ASC LIMIT 1[0m
+  Rendered shared/_table.html.erb (86.7ms)
+  Rendered mentors/_my_mentees.html.erb (93.0ms)
+  Rendered dashboard/index.html.erb within layouts/application (473.3ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 914027 LIMIT 1  [["id", 914027]]
+  [1m[36mCoreMember Load (0.5ms)[0m  [1mSELECT `core_members`.* FROM `core_members` WHERE `core_members`.`id` = 914027 LIMIT 1[0m
+  Rendered shared/_dashboard_navbar.html.erb (9.0ms)
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users`
+Completed 200 OK in 503ms (Views: 464.7ms | ActiveRecord: 36.0ms)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE `sessions` SET `data` = 'BAh7B0kiEF9jc3JmX3Rva2VuBjoGRUZJIjE2QXl3UXdmUmZWSWs3Skw2enRU\nQ0NLKzJlWWE2U2M4eS9VdUczZDBJODFZPQY7AEZJIgx1c2VyX2lkBjsARmkD\na/IN\n', `updated_at` = '2014-12-27 20:12:25' WHERE `sessions`.`id` = 11
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/docs.min.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/bootstrap.min.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/jquery.min.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/bootstrap-theme.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/tps.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/tables.css?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/chartkick.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:26 -0800
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-12-27 12:12:27 -0800
+
+
+Started GET "/assets/glyphicons-halflings-regular.woff" for 127.0.0.1 at 2014-12-27 12:12:27 -0800
+
+
+Started GET "/outreach/mentee_responses" for 127.0.0.1 at 2014-12-27 12:12:32 -0800
+Processing by OutreachController#mentee_responses as HTML
+  [1m[35mActiveRecord::SessionStore::Session Load (0.5ms)[0m  SELECT `sessions`.* FROM `sessions` WHERE `sessions`.`session_id` = 'a4e43f2709235a04eca379c30a966965' ORDER BY `sessions`.`id` ASC LIMIT 1
+  [1m[36mMenteeOutreachResponse Load (0.7ms)[0m  [1mSELECT `mentee_outreach_responses`.* FROM `mentee_outreach_responses`[0m
+  Rendered outreach/mentee_responses.html.erb within layouts/application (31.2ms)
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 914027 LIMIT 1
+  [1m[36mCoreMember Load (0.4ms)[0m  [1mSELECT `core_members`.* FROM `core_members` WHERE `core_members`.`id` = 914027 LIMIT 1[0m
+  Rendered shared/_dashboard_navbar.html.erb (9.2ms)
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users`
+Completed 200 OK in 66ms (Views: 52.3ms | ActiveRecord: 8.1ms)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
