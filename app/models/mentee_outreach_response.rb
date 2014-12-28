@@ -1,5 +1,12 @@
+require 'twilio-ruby'
+
 class MenteeOutreachResponse < ActiveRecord::Base
 
+  TWILIO_ACCOUNT_SID = ENV['TWILIO_ACCOUNT_SID']
+  TWILIO_AUTH_TOKEN = ENV['TWILIO_AUTH_TOKEN']
+  
+
+  ##### CLASS METHODS #####
   def self.process_text(params)
     if MenteeOutreachResponse.where(:phone=>params[:From]).count == 0
       parsed_body = parse_msg_body(params[:Body])
@@ -45,17 +52,95 @@ class MenteeOutreachResponse < ActiveRecord::Base
   end
 
   def self.parse_msg_body(body)
-    new_body = body
+    new_body = body.gsub(/email:?/i, ' ').gsub(/(\A|\s)my\s/i,' ').gsub(/(\A|\s)name\s/i, ' ').gsub(/(\A|\s)is\s/i, ' ').gsub(/(\A|\s)hello\s/i, ' ').gsub(/(\A|\s)hi\s/i, ' ').strip
     out = {}
     unless new_body.match(Helpers::EMAIL_REGEX).nil?
       out[:email] = new_body.match(Helpers::EMAIL_REGEX).to_s
       new_body = new_body.sub(Helpers::EMAIL_REGEX,'')
     end
     unless new_body.split(/\s/).blank?
-      out[:first_name] = new_body.split(/\s/).first[/[a-z]+/i]
-      out[:last_name] = new_body.sub(new_body.split(/\s/).first,'').sub(',','')
+      begin
+        out[:first_name] = new_body.split(/\s/).first[/[a-z]+/i].strip
+      rescue
+        out[:first_name] = nil
+      end
+      begin
+        out[:last_name] = new_body.sub(new_body.split(/\s/).first,'').sub(',','').strip
+      rescue
+        out[:last_name] = nil
+      end
     end
     out
   end
+
+  def self.process_logs
+    client = Twilio::REST::Client.new(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    list = client.account.messages.list(:to=>'+18052508140')
+    messages = []
+
+    #put all msgs in array
+    while true
+      list.each do |message|
+        messages << message
+      end
+      break if list.next_page.blank?
+      list = list.next_page
+    end
+
+    #process msgs in chronological order.
+    messages.reverse.each{|message|
+      process_log_message(message)
+    }
+  end
+
+  def self.process_log_message(message)
+    if MenteeOutreachResponse.where(:phone=>message.from).blank?
+      parsed_body = parse_msg_body(message.body)
+      m = MenteeOutreachResponse.new({
+        :t_msg_id => message.sid,
+        :first_name => parsed_body[:first_name],
+        :last_name => parsed_body[:last_name],
+        :email => parsed_body[:email],
+        :phone => message.from,
+        :response_type => 'text',
+        :sent_at=> message.date_sent
+      })
+    else
+      m = MenteeOutreachResponse.where(:phone=>message.from).first
+      m = update_log_response(m,message)
+    end
+    m.save
+  end
+
+  def self.update_log_response(m,message)
+    m.t_msg_id =  message.sid
+    parsed_body = parse_msg_body(message.body)
+    m.email = parsed_body[:email] if body_has_email?(message.body)
+    m.sent_at = message.date_sent
+    unless body_has_only_email?(message.body)
+      m.first_name = parsed_body[:first_name]
+      m.last_name = parsed_body[:last_name]
+    end
+    m
+  end
+
+  ##### END CLASS METHODS ######
+
+
+
+  ##### INSTANCE METHODS ######
+  def format_sent_at
+    time = sent_at.in_time_zone('Pacific Time (US & Canada)')
+    time.strftime("%b #{time.day.ordinalize}, %-l:%M%P")
+  end
+
+  def format_phone
+    out = phone.sub('+1','')
+    out = out.insert(3,'-')
+    out.insert(7,'-')
+  end
+
+
+  ##### END INSTANCE METHODS ######
 
 end

@@ -17,7 +17,7 @@ class OutreachController < ApplicationController
   end
 
   def mentee_responses
-    @responses = MenteeOutreachResponse.all
+    @responses = MenteeOutreachResponse.all.order(:sent_at)
   end
 
 end

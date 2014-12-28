@@ -1,4 +1,4 @@
-<% headers = ['First Name', 'Last Name', 'Phone Number','Email'] %>
+<% headers = ['First Name', 'Last Name', 'Phone Number','Email', 'Sent At'] %>
 
 <h1><%= "Mentee Outreach - Responses & Contact Info" %></h1>
 
@@ -12,8 +12,9 @@
     <tr>
       <td><%= response.first_name %></td>
       <td><%= response.last_name %></td>
-      <td><%= response.phone %></td>
+      <td><%= response.format_phone %></td>
       <td><%= response.email %></td>
+      <td><%=response.format_sent_at %></td>
     </tr>
   <% end %>
 </table>
