@@ -1,10 +1,11 @@
 require 'twilio-ruby'
+require 'csv'
 
 class MenteeOutreachResponse < ActiveRecord::Base
 
   TWILIO_ACCOUNT_SID = ENV['TWILIO_ACCOUNT_SID']
   TWILIO_AUTH_TOKEN = ENV['TWILIO_AUTH_TOKEN']
-  
+  CSV_FILENAME = "mentee_outreach_responses.csv"
 
   ##### CLASS METHODS #####
   def self.process_text(params)
@@ -124,7 +125,20 @@ class MenteeOutreachResponse < ActiveRecord::Base
     m
   end
 
-  ##### END CLASS METHODS ######
+
+  def self.create_csv
+    fields = ['first_name', 'last_name', 'phone', 'email', 'sent_at']
+    methods = ['first_name', 'last_name', 'format_phone', 'email', 'format_sent_at']
+    CSV.open(Rails.root.join(CSV_FILENAME), 'w+'){ |file|
+      file << fields
+      self.all.each{|response|
+        file << methods.map{|method| response.send(method)}
+      }
+    }
+    CSV_FILENAME
+  end
+
+    ##### END CLASS METHODS ######
 
 
 

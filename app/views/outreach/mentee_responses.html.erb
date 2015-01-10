@@ -1,8 +1,16 @@
 <% headers = ['First Name', 'Last Name', 'Phone Number','Email', 'Sent At'] %>
 
 <h1><%= "Mentee Outreach - Responses & Contact Info" %></h1>
+<div class="well">
+  <%= link_to("List Phone Numbers", :action=>'phone_numbers') %>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to("List Emails", :action=>'emails') %>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to("Export to csv", :action=>'export_to_csv') %>
 
-<table class="table table-striped table-bordered">
+</div>
+
+  <table class="table table-striped table-bordered">
   <tr>
     <% headers.each do |h| %>
       <th><%= h %></th>
