@@ -3,7 +3,7 @@ require 'twilio-ruby'
 class OutreachController < ApplicationController
   include Webhookable
 
-  WEBHOOK_METHODS = [:message_from_mentee_outreach]
+  WEBHOOK_METHODS = [:message_from_mentee_outreach, :send_mass_text]
 
   before_action :require_login, :except => WEBHOOK_METHODS
   after_filter :set_header, :only => WEBHOOK_METHODS
@@ -13,7 +13,7 @@ class OutreachController < ApplicationController
   #webhook for when mentees text the outreach number (Twilio)
   def message_from_mentee_outreach
     MenteeOutreachResponse.process_text(params)
-    render text: ''
+    render :text => ''
   end
 
   def mentee_responses
@@ -32,6 +32,11 @@ class OutreachController < ApplicationController
     filename = MenteeOutreachResponse.create_csv
     send_file Rails.root.join(filename), :x_sendfile => true
     return
+  end
+
+  def send_mass_text
+    MenteeOutreachResponse.send_mass_text(params)
+    render :text => 'Heyo! Congrats, your texts were sent successfully!' if MenteeOutreachResponse::AUTHORIZED_MASS_TEXT_NUMBERS.include?(params[:From])
   end
 
 end

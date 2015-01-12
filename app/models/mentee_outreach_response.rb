@@ -5,9 +5,28 @@ class MenteeOutreachResponse < ActiveRecord::Base
 
   TWILIO_ACCOUNT_SID = ENV['TWILIO_ACCOUNT_SID']
   TWILIO_AUTH_TOKEN = ENV['TWILIO_AUTH_TOKEN']
+
   CSV_FILENAME = "mentee_outreach_responses.csv"
+  AUTHORIZED_MASS_TEXT_NUMBERS = ['+16509246344', '+18053055171']
+  TEST_NUMBERS = ['+18053055171', '+18057045727', '+18057864756']
 
   ##### CLASS METHODS #####
+
+  def self.send_mass_text(params)
+    return unless AUTHORIZED_MASS_TEXT_NUMBERS.include?(params[:From])
+    client = Twilio::REST::Client.new(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    puts "from: #{params[:From]}"
+    puts "message_body: #{params[:Body]}"
+    MenteeOutreachResponse.find_each{|response| #TODO COMMENT IN THIS LINE
+      phone_number = response.phone             #TODO COMMENT IN THIS LINE
+    #TEST_NUMBERS.each{|phone_number|             #TODO COMMENT *OUT* THIS LINE
+      message = client.account.messages.create(:body => params[:Body],
+                                                :to => phone_number,
+                                                :from => params[:To]
+                                                )
+    }
+  end
+
   def self.process_text(params)
     if MenteeOutreachResponse.where(:phone=>params[:From]).count == 0
       parsed_body = parse_msg_body(params[:Body])

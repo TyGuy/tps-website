@@ -36,7 +36,7 @@ end
 gem 'activerecord-session_store'
 
 #enable debugging
-gem 'debugger', group: [:development, :test]
+#gem 'debugger', group: [:development, :test]
 
 #support for reading/writing files in google drive
 gem 'google_drive'

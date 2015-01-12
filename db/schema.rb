@@ -65,18 +65,6 @@ ActiveRecord::Schema.define(version: 20141120023419) do
     t.datetime "updated_at"
   end
 
-  create_table "events", force: true do |t|
-    t.string   "timestamp"
-    t.string   "person_id"
-    t.string   "event_type"
-    t.string   "title"
-    t.string   "description"
-    t.string   "flag"
-    t.string   "resolved"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "highschools", force: true do |t|
     t.string   "name"
     t.string   "address"
@@ -182,11 +170,6 @@ ActiveRecord::Schema.define(version: 20141120023419) do
   create_table "surveys", force: true do |t|
     t.string   "mentee_id"
     t.string   "mentor_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "user_sessions", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
