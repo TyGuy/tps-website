@@ -13,3 +13,4 @@ log
 
 #ignore .idea
 .idea/*
+.idea
