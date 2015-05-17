@@ -1,0 +1,19 @@
+<h1>Create New Mass Text Message</h1>
+<hr/>
+<br/>
+
+<%= form_for MassTextMessage.new do |f| %>
+
+    Name of Message*: <%= f.text_field :name %>
+    <br/>
+    Content of Message**: <%= f.text_field :content %>
+    <br/>
+    <%= f.submit('Create Message') %>
+
+<% end %>
+
+<br/>
+
+<p>(*this name is for you (core member) to keep track of, but is not sent in the actual text)</p>
+<p>(**to insert dynamic fields, use double curly braces, with fields that correspond to fields in the txt-cohort entries .csv file.
+  For example, if you type "Hi, {{name}}, this is a text.", and you have an entry with the field name="Tyler", you will see "Hi Tyler, this is a text."</p>

@@ -1,5 +1,8 @@
 TpsWebsite::Application.routes.draw do
 
+  resources :mass_text_messages, :only => [:index, :new, :show, :create, :update ]
+
+
   get ':controller(/:action(/:id))'
   post ':controller(/:action(/:id))'
   # The priority is based upon order of creation: first created -> highest priority.

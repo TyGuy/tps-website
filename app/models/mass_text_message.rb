@@ -4,7 +4,7 @@ class MassTextMessage < ActiveRecord::Base
   belongs_to :text_cohort
   has_many :text_cohort_entries, through: :text_cohort
 
-
+  #attr_accessible :name, :content
 
 
 end
