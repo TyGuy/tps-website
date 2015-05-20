@@ -1,0 +1,38 @@
+<h1>Create New Text Cohort</h1>
+<hr/>
+<br/>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10">
+      <div class='well'>
+
+        <%= form_for @cohort do |f| %>
+
+            <div class="form-group">
+              <%= f.label :name, "Name of Cohort:", { :for => "cohortNameField" } %>
+              <%= f.text_field :name, {:class=>"form-control", :id => 'cohortNameField'} %>
+            </div>
+
+            <br/>
+
+            <div class="form-group">
+              <%= f.label :cohort_file, 'Upload Cohort .csv', { :for => "cohortUploadField" } %>
+              <%= f.file_field :cohort_file, {:class=>"form-control", :id => 'cohortUploadField'} %>
+            </div>
+
+            <br/>
+
+            <div class="form-group">
+              <%= f.submit('Create Cohort') %>
+            </div>
+
+
+        <% end %>
+
+        <br/>
+
+      </div>
+    </div>
+  </div>
+</div>
+

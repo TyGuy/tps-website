@@ -1,6 +1,7 @@
 TpsWebsite::Application.routes.draw do
 
   resources :mass_text_messages, :only => [:index, :new, :show, :create, :update ]
+  resources :text_cohorts, :only => [:index, :new, :create, :show, :update ]
 
 
   get ':controller(/:action(/:id))'

@@ -3,6 +3,7 @@ class MassTextMessagesController < ApplicationController
   before_action :require_login
 
   def new
+    @message = MassTextMessage.new
   end
 
   def create
@@ -17,7 +18,7 @@ class MassTextMessagesController < ApplicationController
   end
 
   def update
-
+    @message = MassTextMessage.find(params[:id])
   end
 
   def show
@@ -27,7 +28,7 @@ class MassTextMessagesController < ApplicationController
 
   private
   def mass_text_message_params
-    params.require(:mass_text_message).permit(:name, :content)
+    params.require(:mass_text_message).permit(:name, :content, :text_cohort_id)
   end
 
 

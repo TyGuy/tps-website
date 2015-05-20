@@ -1,0 +1,7 @@
+<h3>Text Cohort Entries</h3>
+<% headers = ['ID', 'Phone', 'Fields Hash'] %>
+<% attributes = [:id, :phone, :fields_json] %>
+<% links = [{:attribute=>:id}] %>
+<%= render partial: "shared/table", locals: {headers: headers, attributes: attributes, links: links, object_array: @cohort.text_cohort_entries} %>
+
+
